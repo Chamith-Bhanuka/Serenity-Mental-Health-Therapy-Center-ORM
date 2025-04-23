@@ -10,12 +10,24 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
+
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+
 import lk.ijse.mentalHealthTherapyCenter.bo.BOFactory;
 import lk.ijse.mentalHealthTherapyCenter.bo.custom.PatientBO;
 import lk.ijse.mentalHealthTherapyCenter.dto.PatientDTO;
+import lk.ijse.mentalHealthTherapyCenter.entity.Registration;
+import lk.ijse.mentalHealthTherapyCenter.entity.TherapyProgram;
 
 import java.net.URL;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -29,6 +41,100 @@ public class ScheduleSessionController implements Initializable {
     private final ObservableList<PatientDTO> masterPatientList = FXCollections.observableArrayList();
 
     private boolean ignoreTextChange = false;
+
+    @FXML
+    private Button btnCancelSession;
+
+    @FXML
+    private Button btnReset;
+
+    @FXML
+    private Button btnReshedule;
+
+    @FXML
+    private Button btnSaveSession;
+
+    @FXML
+    private ComboBox<String> cmbRegPrograms;
+
+    @FXML
+    private TableColumn<?, ?> colDate;
+
+    @FXML
+    private TableColumn<?, ?> colEndTime;
+
+    @FXML
+    private TableColumn<?, ?> colId;
+
+    @FXML
+    private TableColumn<?, ?> colPatientId;
+
+    @FXML
+    private TableColumn<?, ?> colProgramId;
+
+    @FXML
+    private TableColumn<?, ?> colStartTime;
+
+    @FXML
+    private TableColumn<?, ?> colStatus;
+
+    @FXML
+    private TableColumn<?, ?> colTheropistId;
+
+    @FXML
+    private DatePicker dpkDate;
+
+    @FXML
+    private Label lblAge;
+
+    @FXML
+    private Label lblGender;
+
+    @FXML
+    private Label lblPatientAddress;
+
+    @FXML
+    private Label lblPatientId;
+
+    @FXML
+    private Label lblPatientName;
+
+    @FXML
+    private ComboBox<?> searchCombo2;
+
+    @FXML
+    private Spinner<?> sprEnd;
+
+    @FXML
+    private Spinner<?> sprStart;
+
+    @FXML
+    private TableView<?> tblSessions;
+
+    @FXML
+    void onCancelSessionClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onRegProgramsClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onResetClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onResheduleClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSaveSessionClick(ActionEvent event) {
+
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -108,6 +214,37 @@ public class ScheduleSessionController implements Initializable {
     private void handlePatientSelection(PatientDTO patient) {
 
         System.out.println("Handling selection for patient: " + patient.getId() + " - " + patient.getName());
+
+        lblPatientId.setText(String.valueOf(patient.getId()));
+        lblPatientName.setText(patient.getName());
+        lblPatientAddress.setText(patient.getAddress());
+        lblGender.setText(patient.getGender());
+        lblAge.setText(String.valueOf(patient.getAge()));
+
+        // Extract therapy program list from the patient's registrations
+        List<TherapyProgram> therapyProgramList = new ArrayList<>();
+        if (patient.getRegistrationList() != null) {
+            for (Registration registration : patient.getRegistrationList()) {
+
+                if (registration.getTherapy_program() != null) {
+                    therapyProgramList.add(registration.getTherapy_program());
+                }
+            }
+        }
+
+        ObservableList<String> therapyProgramNames = FXCollections.observableArrayList();
+
+        if (patient.getRegistrationList() != null) {
+            for (Registration registration : patient.getRegistrationList()) {
+                if (registration.getTherapy_program() != null) {
+                    therapyProgramNames.add(registration.getTherapy_program().getProgramName());
+                }
+            }
+        }
+
+        cmbRegPrograms.setItems(therapyProgramNames);
+
+
     }
 
     private void loadPatientsToComboBox() {

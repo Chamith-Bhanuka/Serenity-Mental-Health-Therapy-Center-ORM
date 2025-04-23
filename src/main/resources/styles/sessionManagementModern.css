@@ -1,89 +1,145 @@
-/* Global styles */
+/* Global Styling for the entire application */
 .root {
     -fx-font-family: "Segoe UI", sans-serif;
-    -fx-background-color: #f4f4f4;
+    -fx-background-color: #ECEFF1; /* light, neutral background */
 }
 
-/* Header styling */
-.header {
-    -fx-background-color: #00796b;
-    -fx-padding: 10;
-    -fx-alignment: center;
+/* AnchorPane specific styling */
+.anchor-pane {
+    -fx-background-color: #F4F4F4; /* keeps initial container clean */
 }
+
+/* Panels (acting as cards) -- use this style for sections that need a border and shadow */
+.panel, .vbox, .hbox {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CFD8DC;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 2);
+}
+
+/* Header Label Styling (if you have a top header) */
 .header-label {
-    -fx-text-fill: white;
     -fx-font-size: 24px;
     -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
-/* Panel (card) styling */
-.panel {
-    -fx-background-color: white;
-    -fx-border-color: #cccccc;
-    -fx-border-width: 1;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.0, 0, 2);
-    -fx-padding: 15;
-}
-.panel-title {
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
-    -fx-padding: 5 0 10 0;
-}
-.section-title {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #555555;
-    -fx-padding: 10 0 5 0;
-}
-
-/* Key and value labels for details */
-.label-key {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #444444;
-    -fx-min-width: 90;
-}
-.label-value {
-    -fx-font-size: 14px;
-    -fx-text-fill: #666666;
-}
-
-/* ComboBox styling */
-.combo-box {
-    -fx-pref-height: 35px;
-}
-
-/* Spinner styling - using defaults; you can override if desired */
-.spinner {
-}
-
-/* Button styling */
-.action-button {
+/* Modern Flat Button Styling */
+.button {
     -fx-background-color: #009688;
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-background-radius: 5;
+    -fx-background-radius: 4;
     -fx-cursor: hand;
-    -fx-padding: 8 15;
+    -fx-border-color: transparent;
 }
-.action-button:hover {
+.button:hover {
     -fx-background-color: #00796b;
 }
 
-/* DatePicker styling */
-.date-picker {
+/* ComboBox Styling */
+.combo-box {
+    -fx-pref-height: 35px;
+    -fx-border-color: #B0BEC5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-background-color: #FAFAFA;
 }
 
-/* TableView styling */
+/* DatePicker Styling */
+.date-picker {
+    -fx-pref-height: 35px;
+    -fx-border-color: #B0BEC5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+/* Spinner Styling */
+.spinner {
+    -fx-pref-height: 35px;
+    -fx-border-color: #B0BEC5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+/* TableView Styling */
 .table-view {
-    -fx-border-color: #cccccc;
+    -fx-border-color: #B0BEC5;
     -fx-border-width: 1;
     -fx-background-color: white;
+    -fx-table-cell-border-color: transparent;
 }
 .table-view .column-header-background {
-    -fx-background-color: #b2dfdb;
+    -fx-background-color: #80CBC4;
 }
+.table-view .column-header, .table-view .filler {
+    -fx-border-color: #B0BEC5;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Label Styling for detail keys (like "ID:", "Name:") and values */
+.label-key {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #37474F;
+}
+.label-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: #616161;
+}
+
+/* Styling for Panes used as visual dividers (as lines between sections) */
+.pane, .divider {
+    -fx-background-color: #CFD8DC;
+}
+
+/* ImageView Styling (if you want a shadow or a more modern look) */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0, 0, 1);
+}
+
+/* Styling for Panes used as visual dividers (as lines between sections) */
+.pane, .divider {
+    -fx-background-color: rgba(128, 128, 128, 0.3);
+}
+
+.gradient-vbox {
+    /* Use a very light teal to almost white gradient */
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #E0F2F1, #FFFFFF);
+
+    /* Curve the corners */
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+
+    /* Add a subtle drop shadow for depth */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.2, 0, 2);
+
+}
+
+.curved-shadow-dot-vbox {
+    /* Apply curved borders and a dotted border with #009688 color */
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-border-color: #009688;
+    -fx-border-style: dotted;
+    -fx-border-width: 1;
+
+    /* Add a subtle drop shadow for depth */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.2, 0, 2);
+}
+
+.custom-bold-text {
+    -fx-font-weight: bold;
+    -fx-text-fill: #009688;
+    -fx-font-size: 12px; /* change to your preferred size */
+}
+
+.custom-bold-text-desc {
+    -fx-font-weight: bold;
+    -fx-text-fill: #044c44;
+    -fx-font-size: 12px; /* change to your preferred size */
+}
+
