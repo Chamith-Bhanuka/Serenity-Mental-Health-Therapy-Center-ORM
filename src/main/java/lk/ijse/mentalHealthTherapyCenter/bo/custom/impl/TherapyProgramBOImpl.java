@@ -1,0 +1,61 @@
+package lk.ijse.mentalHealthTherapyCenter.bo.custom.impl;
+
+import lk.ijse.mentalHealthTherapyCenter.bo.custom.TherapyProgramBO;
+import lk.ijse.mentalHealthTherapyCenter.dao.DAOFactory;
+import lk.ijse.mentalHealthTherapyCenter.dao.custom.TherapyProgramDAO;
+import lk.ijse.mentalHealthTherapyCenter.dto.TherapyProgramDTO;
+import lk.ijse.mentalHealthTherapyCenter.entity.TherapyProgram;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TherapyProgramBOImpl implements TherapyProgramBO {
+
+    TherapyProgramDAO dao = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.TherapyProgram);
+
+    @Override
+    public boolean save(TherapyProgramDTO therapyProgramDTO) {
+        TherapyProgram therapyProgram = new TherapyProgram();
+
+        therapyProgram.setProgramId(therapyProgramDTO.getProgramId());
+        therapyProgram.setProgramName(therapyProgramDTO.getProgramName());
+        therapyProgram.setDuration(therapyProgramDTO.getDuration());
+        therapyProgram.setFee(therapyProgramDTO.getFee());
+
+        return dao.save(therapyProgram);
+    }
+
+    @Override
+    public boolean update(TherapyProgramDTO therapyProgramDTO) {
+        TherapyProgram therapyProgram = new TherapyProgram();
+
+        therapyProgram.setProgramId(therapyProgramDTO.getProgramId());
+        therapyProgram.setProgramName(therapyProgramDTO.getProgramName());
+        therapyProgram.setDuration(therapyProgramDTO.getDuration());
+        therapyProgram.setFee(therapyProgramDTO.getFee());
+
+        return dao.update(therapyProgram);
+    }
+
+    @Override
+    public boolean deleteByPk(String pk) {
+        return dao.deleteByPk(pk);
+    }
+
+    @Override
+    public List<TherapyProgramDTO> getAll() {
+        ArrayList<TherapyProgramDTO> therapyProgramDTOArrayList = new ArrayList<>();
+        List<TherapyProgram> entityList = dao.getAll();
+
+        for (TherapyProgram therapyProgram : entityList) {
+            therapyProgramDTOArrayList.add(new TherapyProgramDTO(
+                    therapyProgram.getProgramId(),
+                    therapyProgram.getProgramName(),
+                    therapyProgram.getDuration(),
+                    therapyProgram.getFee()
+            ));
+        }
+        return therapyProgramDTOArrayList;
+    }
+
+}

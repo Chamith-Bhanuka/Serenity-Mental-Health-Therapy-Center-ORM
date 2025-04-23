@@ -1,0 +1,41 @@
+.anc-bg {
+    -fx-background-color: white;
+}
+
+.h-nev {
+    -fx-background-color: #f4f4f8;
+}
+
+.v-nev {
+    -fx-background-color: #f4f4f8;
+}
+
+.circle-stackPane {
+    -fx-background-color: white; /* Set the background color to white */
+    -fx-background-radius: 100%; /* Make it a fully circular shape */
+}
+
+.textField-custom {
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-border-color: transparent;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+}
+
+.circle-stackPane-left {
+    -fx-background-color: white; /* Set the background color to white */
+    -fx-background-radius: 100%; /* Make it a fully circular shape */
+}
+
+.circle-stackPane-left:hover {
+    -fx-border-width: 2px;
+    -fx-border-radius: 100%;
+    -fx-border-color: #556B2F;
+    -fx-background-color: white; /* Set the background color to white */
+    -fx-background-radius: 100%; /* Make it a fully circular shape */
+}
+
+
+
+

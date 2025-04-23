@@ -1,0 +1,69 @@
+/* Overall root style with a soft gradient background */
+AnchorPane {
+    -fx-background-color: linear-gradient(to bottom right, #f4f4f8, #ffffff);
+}
+
+/* Header style: large, bold text with modern spacing */
+.header {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00796b;
+    -fx-alignment: center;
+    -fx-padding: 15;
+}
+
+/* Input fields with rounded corners and soft border */
+.input-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b2dfdb;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10 15;
+    -fx-font-size: 14px;
+}
+
+/* Focus effect for input fields */
+.input-field:focused {
+    -fx-border-color: #00796b;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0.0, 0, 2);
+}
+
+/* Table view styling for therapists */
+.modern-table {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.modern-table .column-header-background {
+    -fx-background-color: #b2dfdb;
+    -fx-background-radius: 8 8 0 0;
+}
+
+.modern-table .table-row-cell {
+    -fx-background-color: transparent;
+}
+
+.modern-table .table-row-cell:hover {
+    -fx-background-color: rgba(0, 121, 107, 0.1);
+}
+
+.modern-table .table-row-cell:selected {
+    -fx-text-fill: #004d40;
+}
+
+/* Action buttons with modern flat style and hover effect */
+.action-button {
+    -fx-background-color: #009688;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 8 17;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0.0, 2, 2);
+}
+
+.action-button:hover {
+    -fx-background-color: #00796b;
+}

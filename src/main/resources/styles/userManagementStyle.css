@@ -1,0 +1,80 @@
+/* Root container for the entire user management screen */
+.user-management-root {
+    -fx-background-color: #f0f4f7; /* Light, neutral background */
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+/* Main container that holds the table and form */
+.content-container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 5);
+}
+
+/* Styling for the table view */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+}
+
+/* Improve the look of the header */
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(#eff3f6, #d4e2ec);
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #8FBC8F; /* Light blue color for a selected row */
+    -fx-text-fill: #556B2F;
+}
+
+.table-view .table-row-cell:selected:focused {
+    -fx-background-color: #8FBC8F;
+}
+
+/* Form container styling */
+.form-container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 5);
+}
+
+/* Label styling inside the form */
+.form-label {
+    -fx-text-fill: #333333;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+/* TextField styling with a light background and subtle borders */
+.form-text-field {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8 10;
+}
+
+/* Highlight TextField when focused */
+.form-text-field:focused {
+    -fx-border-color: #556B2F;
+}
+
+/* Button styling with a modern flat look */
+.form-button {
+    -fx-background-color: #8FBC8F;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-border: none;
+    -fx-padding: 10 15;
+    -fx-font-size: 13;
+    -fx-cursor: hand;
+}
+
+/* Darken the button on hover for a subtle effect */
+.form-button:hover {
+    -fx-background-color: #556B2F;
+}

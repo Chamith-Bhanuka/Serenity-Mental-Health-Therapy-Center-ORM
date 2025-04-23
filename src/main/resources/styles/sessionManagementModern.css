@@ -1,0 +1,89 @@
+/* Global styles */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #f4f4f4;
+}
+
+/* Header styling */
+.header {
+    -fx-background-color: #00796b;
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+.header-label {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* Panel (card) styling */
+.panel {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.0, 0, 2);
+    -fx-padding: 15;
+}
+.panel-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 5 0 10 0;
+}
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+    -fx-padding: 10 0 5 0;
+}
+
+/* Key and value labels for details */
+.label-key {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #444444;
+    -fx-min-width: 90;
+}
+.label-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+}
+
+/* ComboBox styling */
+.combo-box {
+    -fx-pref-height: 35px;
+}
+
+/* Spinner styling - using defaults; you can override if desired */
+.spinner {
+}
+
+/* Button styling */
+.action-button {
+    -fx-background-color: #009688;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-padding: 8 15;
+}
+.action-button:hover {
+    -fx-background-color: #00796b;
+}
+
+/* DatePicker styling */
+.date-picker {
+}
+
+/* TableView styling */
+.table-view {
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+}
+.table-view .column-header-background {
+    -fx-background-color: #b2dfdb;
+}

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="592.0" prefWidth="969.0" styleClass="anc-bg" stylesheets="@../styles/dashboardStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mentalHealthTherapyCenter.controller.DashboardController">
+   <children>
+      <VBox alignment="TOP_CENTER" minHeight="592.0" minWidth="80.0" spacing="25.0" styleClass="v-nev" stylesheets="@../styles/dashboardStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <StackPane prefHeight="50.0" prefWidth="80.0">
+               <children>
+                  <Label text="CB" textFill="DARKOLIVEGREEN">
+                     <font>
+                        <Font name="Calibri Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <StackPane fx:id="stpHome" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" onMouseClicked="#onHomeClick" prefHeight="50.0" prefWidth="50.0" styleClass="circle-stackPane-left" VBox.vgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-home-50%20(1).png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane fx:id="stpTherapist" layoutX="25.0" layoutY="60.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" onMouseClicked="#onTherapistClick" prefHeight="50.0" prefWidth="50.0" styleClass="circle-stackPane-left" VBox.vgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-doctor-50.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane fx:id="stpTProgram" layoutX="25.0" layoutY="111.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" onMouseClicked="#onTherapyProgramClick" prefHeight="50.0" prefWidth="50.0" styleClass="circle-stackPane-left" VBox.vgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-scenario-64.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane fx:id="stpPatient" layoutX="25.0" layoutY="336.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" onMouseClicked="#onRegisterPatientClick" prefHeight="50.0" prefWidth="50.0" styleClass="circle-stackPane-left">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-patient-50.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane fx:id="stpSchedule" layoutX="25.0" layoutY="416.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" onMouseClicked="#onScheduleSessionClick" prefHeight="50.0" prefWidth="50.0" styleClass="circle-stackPane-left">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-schedule-50.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <Pane VBox.vgrow="ALWAYS" />
+            <StackPane fx:id="stpAddNew" layoutX="25.0" layoutY="236.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" onMouseClicked="#onAddNewUserClick" prefHeight="50.0" prefWidth="50.0" styleClass="circle-stackPane-left" VBox.vgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/addNew.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </StackPane>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <HBox alignment="CENTER_LEFT" layoutX="100.0" minHeight="50.0" minWidth="870.0" styleClass="h-nev" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane fx:id="focusHolder" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" prefHeight="30.0" prefWidth="30.0" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="txtSearch" prefHeight="35.0" prefWidth="300.0" styleClass="textField-custom" />
+            <Pane minHeight="50.0" minWidth="50.0" prefHeight="50.0" prefWidth="240.0" HBox.hgrow="ALWAYS" />
+            <StackPane maxHeight="35.0" maxWidth="35.0" minWidth="35.0" styleClass="circle-stackPane">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/notify.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <Pane layoutX="360.0" layoutY="10.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" prefHeight="50.0" prefWidth="50.0" HBox.hgrow="ALWAYS" />
+            <StackPane layoutX="611.0" layoutY="17.0" maxHeight="30.0" maxWidth="30.0" minWidth="30.0" styleClass="circle-stackPane">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/user.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <Label text="Chamith Bhanuka">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imgDropDown" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../images/icons8-dropdown-50.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <AnchorPane fx:id="ancMain" layoutX="80.0" layoutY="116.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </AnchorPane>
+   </children>
+</AnchorPane>
