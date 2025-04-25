@@ -134,3 +134,17 @@ AnchorPane {
     -fx-background-color: #556B2F;
 }
 
+.input-field-txt-area {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b2dfdb;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size: 14px;
+}
+
+/* Focus effect for input fields */
+.input-field-txt-area:focused {
+    -fx-border-color: #00796b;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0.0, 0, 2);
+}

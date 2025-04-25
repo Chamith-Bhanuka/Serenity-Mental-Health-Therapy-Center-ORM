@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PatientBO extends SuperBO {
     boolean save(PatientDTO patientDTO, List<String> selectedIdList);
-    boolean update(PatientDTO patientDTO);
+    boolean update(PatientDTO patientDTO, List<String> selectedIdList);
     boolean deleteByPk(String pk);
     List<PatientDTO> getAll();
 }

@@ -13,4 +13,5 @@ public class TherapyProgramDTO {
     private String programName;
     private String duration;
     private Double fee;
+    private String description;
 }

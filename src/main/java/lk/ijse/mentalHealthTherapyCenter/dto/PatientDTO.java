@@ -18,5 +18,6 @@ public class PatientDTO {
     private String address;
     private String gender;
     private int age;
+    private String medicalHistory;
     private List<Registration> registrationList;
 }

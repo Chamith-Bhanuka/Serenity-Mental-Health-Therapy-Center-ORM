@@ -29,27 +29,27 @@ AnchorPane {
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0.0, 0, 2);
 }
 
-/* Table view styling for therapists */
-.modern-table {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+/* Styling for the table view */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
 }
 
-.modern-table .column-header-background {
-    -fx-background-color: #b2dfdb;
-    -fx-background-radius: 8 8 0 0;
+/* Header background styling */
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(#eff3f6, #d4e2ec);
 }
 
-.modern-table .table-row-cell {
-    -fx-background-color: transparent;
+/* Styling for selected table rows */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #8FBC8F;
+    -fx-text-fill: #556B2F;
 }
 
-.modern-table .table-row-cell:hover {
-    -fx-background-color: rgba(0, 121, 107, 0.1);
-}
-
-.modern-table .table-row-cell:selected {
-    -fx-text-fill: #004d40;
+.table-view .table-row-cell:selected:focused {
+    -fx-background-color: #8FBC8F;
 }
 
 /* Action buttons with modern flat style and hover effect */
@@ -59,11 +59,26 @@ AnchorPane {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
-    -fx-padding: 8 17;
+    -fx-padding: 6 14;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0.0, 2, 2);
 }
 
 .action-button:hover {
     -fx-background-color: #00796b;
+}
+
+.action-button-search {
+    -fx-background-color: #FF9800;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0.0, 2, 2);
+}
+
+.action-button-search:hover {
+    -fx-background-color: #FB8C00;
 }

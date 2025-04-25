@@ -226,8 +226,8 @@ public class ScheduleSessionController implements Initializable {
         if (patient.getRegistrationList() != null) {
             for (Registration registration : patient.getRegistrationList()) {
 
-                if (registration.getTherapy_program() != null) {
-                    therapyProgramList.add(registration.getTherapy_program());
+                if (registration.getTherapyProgram() != null) {
+                    therapyProgramList.add(registration.getTherapyProgram());
                 }
             }
         }
@@ -236,8 +236,8 @@ public class ScheduleSessionController implements Initializable {
 
         if (patient.getRegistrationList() != null) {
             for (Registration registration : patient.getRegistrationList()) {
-                if (registration.getTherapy_program() != null) {
-                    therapyProgramNames.add(registration.getTherapy_program().getProgramName());
+                if (registration.getTherapyProgram() != null) {
+                    therapyProgramNames.add(registration.getTherapyProgram().getProgramName());
                 }
             }
         }

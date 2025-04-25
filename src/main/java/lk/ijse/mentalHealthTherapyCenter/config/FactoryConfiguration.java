@@ -18,6 +18,7 @@ public class FactoryConfiguration {
         config.addAnnotatedClass(TherapyProgram.class);
         config.addAnnotatedClass(Therapist.class);
         config.addAnnotatedClass(lk.ijse.mentalHealthTherapyCenter.entity.Session.class);
+        config.addAnnotatedClass(Payment.class);
 
         sessionFactory = config.buildSessionFactory();
     }

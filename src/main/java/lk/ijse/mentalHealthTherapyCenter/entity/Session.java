@@ -22,21 +22,25 @@ public class Session implements SuperEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    // Date of the appointment
     private LocalDate sessionDate;
     private LocalTime startTime;
     private LocalTime endTime;
     private String status; // scheduled, canceled, completed
 
+    // the patient participating in this session
     @ManyToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
+    // the therapist assigned to this session
     @ManyToOne
-    @JoinColumn(name = "therapist_id")
+    @JoinColumn(name = "therapist_id", nullable = false)
     private Therapist therapist;
 
+    // the therapy program related to this session
     @ManyToOne
-    @JoinColumn(name = "program_id")
-    private TherapyProgram program;
+    @JoinColumn(name = "program_id" , nullable = false)
+    private TherapyProgram therapyProgram;
 
 }

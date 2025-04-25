@@ -1,0 +1,114 @@
+/* Global styling for the application */
+.root {
+    -fx-font-family: "Roboto", "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-background-color: #f0f2f5;
+}
+
+/* Standard layout containers */
+.hbox,
+.vbox {
+    -fx-alignment: center-left;
+}
+
+/* ----------------------
+   TextField styling
+---------------------- */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc; /* Light grey default border */
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}
+
+.text-field:focused {
+    -fx-border-color: #00796b; /* Teal color when selected/focused */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.0, 0, 2);
+}
+
+/* ----------------------
+   TextArea styling
+---------------------- */
+.text-area {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc; /* Default border is light grey */
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-control-inner-background: #ffffff;
+}
+
+.text-area:focused {
+    -fx-border-color: #00796b; /* Teal when focused */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.0, 0, 2);
+}
+
+/* ----------------------
+   ComboBox styling
+---------------------- */
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc; /* Default light grey border */
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}
+
+.combo-box:focused {
+    -fx-border-color: #00796b; /* Changes to teal when focused */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.0, 0, 2);
+}
+
+/* ----------------------
+   Button styling (example)
+---------------------- */
+.button {
+    -fx-background-color: #00796b;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.0, 0, 2);
+}
+.button:hover {
+    -fx-background-color: #00665c;
+}
+
+/* Optional: ImageView for consistency with a subtle shadow for depth */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.0, 0, 2);
+}
+
+/* Basic container styling for major sections */
+.anchor-pane {
+    -fx-background-color: #ffffff;
+}
+
+/* Keep StackPane transparent unless required */
+.stack-pane {
+    -fx-background-color: transparent;
+}
+
+/* Custom VBox style: curved, dotted, thick border with #00796b */
+.curved-dotted-vbox {
+    -fx-border-color: #00796b;
+    -fx-border-style: dotted;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.transparent-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #006400; /* Dark green text */
+    -fx-font-size: 14px;
+    -fx-border-color: #00796b;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+}
+
+.transparent-button:hover {
+    -fx-background-color: #00796b;
+    -fx-text-fill: white;
+}
+

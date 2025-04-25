@@ -1,6 +1,7 @@
 package lk.ijse.mentalHealthTherapyCenter.dto;
 
 import lk.ijse.mentalHealthTherapyCenter.entity.Session;
+import lk.ijse.mentalHealthTherapyCenter.entity.TherapyProgram;
 import lombok.*;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public class TherapistDTO {
     private String email;
     private String phone;
     private String specialization;
-    private List<Session> sessions;
+    private List<TherapyProgram> therapyPrograms;
 }

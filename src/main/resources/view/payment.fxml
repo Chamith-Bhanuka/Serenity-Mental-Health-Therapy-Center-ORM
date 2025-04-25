@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mentalHealthTherapyCenter.controller.PaymentController">
+   <children>
+      <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="vbxMsg" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" visible="false">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-done%20(1).gif" />
+                     </image>
+                  </ImageView>
+                  <Label text="Payment completed successfully, and the patient has been registered!">
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" styleClass="transparent-button" stylesheets="@../styles/PaymentStyles.css" text="Print Bill">
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox fx:id="vbxMainForm" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" stylesheets="@../styles/PaymentStyles.css">
+               <children>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Payment">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Pane maxHeight="1.0" minHeight="1.0" prefHeight="1.0" style="-fx-background-color: green;" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="15.0" />
+                     </VBox.margin>
+                  </Pane>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <StackPane HBox.hgrow="ALWAYS">
+                           <children>
+                              <VBox prefHeight="459.0" prefWidth="176.0" spacing="5.0" styleClass="curved-dotted-vbox">
+                                 <children>
+                                    <Label text="Billing Info">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="15.0" />
+                                       </padding>
+                                    </Label>
+                                    <VBox VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Patient Name" />
+                                          <TextField fx:id="txtName" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                    </VBox>
+                                    <HBox spacing="15.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Email" />
+                                                <TextField fx:id="txtEmail" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                          <VBox HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Phone" />
+                                                <TextField fx:id="txtPhone" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="80.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Age" />
+                                                <TextField fx:id="txtAge" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                          <VBox HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Gender" />
+                                                <TextField fx:id="txtGender" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <VBox layoutX="10.0" layoutY="210.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Address" />
+                                          <TextField fx:id="txtAddress" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="10.0" layoutY="253.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Medical History" />
+                                          <TextArea fx:id="txtHistory" editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="10.0" layoutY="296.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Selected Programs" />
+                                          <TextArea fx:id="txtPrograms" editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="10.0" layoutY="167.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Payment Method" />
+                                          <ComboBox fx:id="cmbPaymentMethod" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="10.0" layoutY="292.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Button fx:id="btnProceed" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleProceedAction" text="Proceed" visible="false" VBox.vgrow="ALWAYS">
+                                             <VBox.margin>
+                                                <Insets top="15.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </StackPane>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox fx:id="hbxCashPayment" alignment="CENTER" spacing="15.0">
+                                       <children>
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/icons8-payment-processed.gif" />
+                                             </image>
+                                          </ImageView>
+                                          <Label text="Select Payment Method to Proceed">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <VBox fx:id="vbxCardPayment" prefHeight="200.0" prefWidth="100.0" spacing="15.0" visible="false">
+                                       <children>
+                                          <Label text="Credit Card Info">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="15.0" />
+                                             </padding>
+                                          </Label>
+                                          <VBox VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Card Holder's Name" />
+                                                <TextField fx:id="txtCardHolderName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                          <VBox layoutX="10.0" layoutY="52.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Card Number" />
+                                                <TextField fx:id="txtCardNumber" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="XXXX XXXX XXXX XXXX" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                          <HBox spacing="15.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <VBox HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="Exp.Month" />
+                                                      <TextField fx:id="txtExpMonth" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="Exp.Year" />
+                                                      <TextField fx:id="txtExpYear" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <VBox layoutX="10.0" layoutY="96.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Label text="CVC Number" />
+                                                <TextField fx:id="txtCVCNumber" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                          <VBox fx:id="rootPane" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <ImageView fx:id="imgCard" fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                                                   <image>
+                                                      <Image url="@../images/credit-card-6640238_1280.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                          </VBox>
+                                          <HBox alignment="BOTTOM_RIGHT" prefHeight="50.0" prefWidth="372.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Button fx:id="btnReset" minHeight="50.0" minWidth="80.0" mnemonicParsing="false" onAction="#onCardResetClick" text="Reset" HBox.hgrow="ALWAYS" />
+                                                <Button fx:id="btnProceedFromCard" layoutX="302.0" layoutY="20.0" minHeight="50.0" minWidth="80.0" mnemonicParsing="false" onAction="#handleProceedAction" text="Proceed" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+               </padding>
+            </VBox>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

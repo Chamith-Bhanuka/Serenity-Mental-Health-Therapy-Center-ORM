@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,22 +15,26 @@ import java.sql.Date;
 @Getter
 @Setter
 @Table(name = "registration")
-public class Registration {
+public class Registration implements SuperEntity{
 
-    @EmbeddedId
-    private RegistrationId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private Date date;
-    private Double payment;
+    private LocalDate registrationDate;
 
+    //link to the patient making the registration
     @ManyToOne
-    @MapsId("patientId")
-    @JoinColumn(name = "patient_id", referencedColumnName = "patient_id")
+    @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
+    //link to the therapy program
     @ManyToOne
-    @MapsId("therapyProgramId")
-    @JoinColumn(name = "program_id", referencedColumnName = "programId")
-    private TherapyProgram therapy_program;
+    @JoinColumn(name = "program_id", nullable = false)
+    private TherapyProgram therapyProgram;
+
+    //One-to-one relationship with payment to track the upfront payment for this registration
+    @OneToOne(mappedBy = "registration", cascade = CascadeType.ALL)
+    private Payment payment;
 
 }

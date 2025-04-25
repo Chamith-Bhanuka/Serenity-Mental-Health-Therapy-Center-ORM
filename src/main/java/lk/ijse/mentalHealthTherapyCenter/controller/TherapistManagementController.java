@@ -4,16 +4,28 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijse.mentalHealthTherapyCenter.bo.BOFactory;
 import lk.ijse.mentalHealthTherapyCenter.bo.custom.TherapistBO;
+import lk.ijse.mentalHealthTherapyCenter.bo.custom.TherapyProgramBO;
 import lk.ijse.mentalHealthTherapyCenter.dto.TherapistDTO;
+import lk.ijse.mentalHealthTherapyCenter.dto.TherapyProgramDTO;
 import lk.ijse.mentalHealthTherapyCenter.entity.Session;
+import lk.ijse.mentalHealthTherapyCenter.entity.TherapyProgram;
+import lk.ijse.mentalHealthTherapyCenter.view.tdm.ProgramSelectTM;
 import lk.ijse.mentalHealthTherapyCenter.view.tdm.TherapistTM;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,9 +68,6 @@ public class TherapistManagementController implements Initializable {
     private TextField txtEmail;
 
     @FXML
-    private TextField txtId;
-
-    @FXML
     private TextField txtName;
 
     @FXML
@@ -67,7 +76,29 @@ public class TherapistManagementController implements Initializable {
     @FXML
     private TextField txtSpecialization;
 
+    @FXML
+    private TableColumn<ProgramSelectTM, String> colProgram;
+
+    @FXML
+    private TableColumn<ProgramSelectTM, String> colProgramId;
+
+    @FXML
+    private TableColumn<ProgramSelectTM, Boolean> colAction;
+
+    @FXML
+    private TableColumn<ProgramSelectTM, Double> colFee;
+
+    @FXML
+    private TableView<ProgramSelectTM> tblProgram;
+
+    @FXML
+    private Button btnSearch;
+
+
     TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBO(BOFactory.BOType.Therapist);
+    TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.TherapyProgram);
+
+    List<String> selectedProgramIds = new ArrayList<>();
 
     @FXML
     void onDelete(ActionEvent event) {
@@ -78,7 +109,9 @@ public class TherapistManagementController implements Initializable {
 
         if (result.get() == ButtonType.YES) {
 
-            boolean isDeleted = therapistBO.deleteByPk(txtId.getText());
+            int selectedId = tblTherapist.getSelectionModel().getSelectedItem().getId();
+
+            boolean isDeleted = therapistBO.deleteByPk(String.valueOf(selectedId));
 
             if (isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Therapist Deleted successfully..!").show();
@@ -101,16 +134,16 @@ public class TherapistManagementController implements Initializable {
     void onSave(ActionEvent event) {
         System.out.println("Save clicked");
 
-        int id  = Integer.parseInt(txtId.getText());
+        int id = 0;
         String name = txtName.getText();
         String email = txtEmail.getText();
         String phone = txtPhone.getText();
         String specialization = txtSpecialization.getText();
-        List<Session> sessionList = new ArrayList<>();
+        List<TherapyProgram> therapyProgramList = new ArrayList<>();
 
-        TherapistDTO therapistDTO = new TherapistDTO(id, name, email, phone, specialization, sessionList);
+        TherapistDTO therapistDTO = new TherapistDTO(id, name, email, phone, specialization, therapyProgramList);
 
-        boolean isSaved = therapistBO.save(therapistDTO);
+        boolean isSaved = therapistBO.save(therapistDTO, selectedProgramIds);
 
         if (isSaved) {
             new Alert(Alert.AlertType.INFORMATION, "Therapist Saved..!").show();
@@ -124,16 +157,16 @@ public class TherapistManagementController implements Initializable {
     void onUpdate(ActionEvent event) {
         System.out.println("Update clicked");
 
-        int id  = Integer.parseInt(txtId.getText());
+        int id = tblTherapist.getSelectionModel().getSelectedItem().getId();
         String name = txtName.getText();
         String email = txtEmail.getText();
         String phone = txtPhone.getText();
         String specialization = txtSpecialization.getText();
-        List<Session> sessionList = new ArrayList<>();
+        List<TherapyProgram> therapyProgramList = new ArrayList<>();
 
-        TherapistDTO therapistDTO = new TherapistDTO(id, name, email, phone, specialization, sessionList);
+        TherapistDTO therapistDTO = new TherapistDTO(id, name, email, phone, specialization, therapyProgramList);
 
-        boolean isUpdated = therapistBO.update(therapistDTO);
+        boolean isUpdated = therapistBO.update(therapistDTO, selectedProgramIds);
 
         if (isUpdated) {
             new Alert(Alert.AlertType.INFORMATION, "Therapist Updated..!").show();
@@ -148,13 +181,14 @@ public class TherapistManagementController implements Initializable {
         TherapistTM selectedItem = tblTherapist.getSelectionModel().getSelectedItem();
 
         if (selectedItem != null) {
-            txtId.setText(String.valueOf(selectedItem.getId()));
             txtName.setText(selectedItem.getName());
             txtPhone.setText(selectedItem.getPhone());
             txtEmail.setText(selectedItem.getEmail());
             txtSpecialization.setText(selectedItem.getSpecialization());
 
             btnSave.setDisable(true);
+            btnSave.setVisible(false);
+            btnSearch.setVisible(true);
 
             btnUpdate.setDisable(false);
             btnDelete.setDisable(false);
@@ -165,16 +199,17 @@ public class TherapistManagementController implements Initializable {
     private void refreshPage() {
         refreshTable();
 
-        txtId.setText("");
         txtName.setText("");
         txtPhone.setText("");
         txtEmail.setText("");
         txtSpecialization.setText("");
 
         btnSave.setDisable(false);
+        btnSave.setVisible(true);
+        btnSearch.setVisible(false);
 
         btnDelete.setDisable(true);
-        btnReset.setDisable(true);
+        btnReset.setDisable(false);
         btnUpdate.setDisable(true);
     }
 
@@ -194,6 +229,9 @@ public class TherapistManagementController implements Initializable {
             therapistTMS.add(therapistTM);
         }
         tblTherapist.setItems(therapistTMS);
+
+        //reset check boxes
+        resetCheckboxes();
     }
 
     private void setCellValues() {
@@ -204,10 +242,80 @@ public class TherapistManagementController implements Initializable {
         colSpecialization.setCellValueFactory(new PropertyValueFactory<>("specialization"));
     }
 
+    private void setCellValuesForProgramSelector() {
+        colProgramId.setCellValueFactory(new PropertyValueFactory<>("programId"));
+        colProgram.setCellValueFactory(new PropertyValueFactory<>("programName"));
+        colFee.setCellValueFactory(new PropertyValueFactory<>("fee"));
+        colAction.setCellValueFactory(new PropertyValueFactory<>("checked"));
+
+        colAction.setCellFactory(CheckBoxTableCell.forTableColumn(colAction));
+        colAction.setCellValueFactory(cellData-> cellData.getValue().checkedProperty());
+        tblProgram.setEditable(true);
+
+        loadDataToProgramsTbl();
+
+    }
+
+    private void loadDataToProgramsTbl() {
+        List<TherapyProgramDTO> therapyProgramDTOList = therapyProgramBO.getAll();
+
+        for (TherapyProgramDTO therapyProgramDTO : therapyProgramDTOList) {
+            tblProgram.getItems().add(new ProgramSelectTM(therapyProgramDTO.getProgramId(), therapyProgramDTO.getProgramName(), therapyProgramDTO.getFee()));
+        }
+    }
+
+    private void resetCheckboxes() {
+        for (ProgramSelectTM item : tblProgram.getItems()) {
+            item.setChecked(false);
+        }
+        tblProgram.getSelectionModel().clearSelection();
+    }
+
+    private void addSelectionListener(ProgramSelectTM item) {
+        item.checkedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                if (!selectedProgramIds.contains(item.getProgramId())) {
+                    selectedProgramIds.add(item.getProgramId());
+                    System.out.println("add id: " + item.getProgramId());
+                }
+            } else {
+                selectedProgramIds.remove(item.getProgramId());
+                System.out.println("remove id: " + item.getProgramId());
+            }
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setCellValues();
 
+        setCellValuesForProgramSelector();
+
         refreshPage();
+
+        tblProgram.getItems().forEach(this::addSelectionListener);
+    }
+
+    @FXML
+    void onBtnSearchClick(ActionEvent event) throws IOException {
+        System.out.println("search clicked");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/therapistScheduleAndAvailability.fxml"));
+        Parent load = loader.load();
+
+        TherapistScheduleAvailabilityController controller = loader.getController();
+        controller.setUp(tblTherapist.getSelectionModel().getSelectedItem().getId(), tblTherapist.getSelectionModel().getSelectedItem().getName());
+
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(load));
+        stage.setTitle("Therapist Schedule and Availability");
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Window underWindow = btnSearch.getScene().getWindow();
+        stage.initOwner(underWindow);
+
+        stage.showAndWait();
+
     }
 }

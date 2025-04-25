@@ -1,17 +1,19 @@
 package lk.ijse.mentalHealthTherapyCenter.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
 @Getter
 @Setter
+@EqualsAndHashCode //for correctly comparing composite keys
 public class RegistrationId implements SuperEntity {
+    @Column(name = "patient_id")
     private int patientId;
+
+    @Column(name = "therapy_program_id")
     private String therapyProgramId;
 }

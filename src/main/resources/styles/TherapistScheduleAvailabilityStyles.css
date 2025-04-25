@@ -1,0 +1,24 @@
+/* Modern AnchorPane Style */
+.history-pane {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.1, 0, 2);
+}
+
+/* Modern TextArea Style */
+.history-textarea {
+    -fx-background-color: white;
+    -fx-control-inner-background: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-text-fill: #333;
+    -fx-focus-color: #3f51b5;
+    -fx-faint-focus-color: transparent;
+}

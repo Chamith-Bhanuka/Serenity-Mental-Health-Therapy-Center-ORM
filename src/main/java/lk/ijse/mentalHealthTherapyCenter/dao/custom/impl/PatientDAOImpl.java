@@ -92,7 +92,7 @@ public class PatientDAOImpl implements PatientDAO {
     public boolean save(Patient patient, Session session, Transaction transaction) {
         try {
             System.out.println("Persisting patient: " + patient.getId());
-            System.out.println("Patient selected programs: " + patient.getRegistrationList());
+            System.out.println("Patient selected programs: " + patient.getRegistrations());
             session.persist(patient);
             transaction.commit();
             System.out.println("Transaction committed");

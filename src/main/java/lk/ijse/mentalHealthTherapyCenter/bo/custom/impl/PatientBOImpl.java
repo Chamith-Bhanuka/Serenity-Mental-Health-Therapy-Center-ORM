@@ -25,62 +25,64 @@ public class PatientBOImpl implements PatientBO {
     @Override
     public boolean save(PatientDTO patientDTO, List<String> selectedIdList) {
 
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-
-        try {
-
-            Patient patient = new Patient();
-
-//            patient.setId(patientDTO.getId());
-            patient.setName(patientDTO.getName());
-            patient.setEmail(patientDTO.getEmail());
-            patient.setPhone(patientDTO.getPhone());
-            patient.setAddress(patientDTO.getAddress());
-            patient.setGender(patientDTO.getGender());
-            patient.setAge(patientDTO.getAge());
-            patient.setRegistrationList(patientDTO.getRegistrationList());
-
-            //get registration list
-            List<Registration> registrations = new ArrayList<>();
-            patient.setRegistrationList(registrations);
-
-            List<TherapyProgram> selectedPrograms = therapyProgramDAO.getTherapyProgramsBySelectedIds(session, selectedIdList);
-            System.out.println("Here is therapy programs selected by patient: " + selectedPrograms);
-
-            for (TherapyProgram therapyProgram : selectedPrograms) {
-                Registration registration = new Registration();
-                RegistrationId regId = new RegistrationId();
-                regId.setPatientId(patient.getId());
-                regId.setTherapyProgramId(therapyProgram.getProgramId());
-                registration.setId(regId);
-                registration.setDate(Date.valueOf("2025-05-01"));
-                registration.setPayment(therapyProgram.getFee());
-                registration.setPatient(patient);
-                registration.setTherapy_program(therapyProgram);
-                registrations.add(registration);
-
-                // STEP 3: Persist the patient and cascade save the registrations
-//                session.persist(patient);
-//                session.getTransaction().commit();
-            }
-
-            return dao.save(patient, session, transaction);
-
-        } catch (Exception e) {
-            transaction.rollback();
-            System.out.println("<---- Unable to save patient ---->");
-            return false;
-
-        } finally {
-//            session.close();
-            System.out.println("I'm here");
-        }
+//        Session session = FactoryConfiguration.getInstance().getSession();
+//        Transaction transaction = session.beginTransaction();
+//
+//        try {
+//
+//            Patient patient = new Patient();
+//
+////            patient.setId(patientDTO.getId());
+//            patient.setName(patientDTO.getName());
+//            patient.setEmail(patientDTO.getEmail());
+//            patient.setPhone(patientDTO.getPhone());
+//            patient.setAddress(patientDTO.getAddress());
+//            patient.setGender(patientDTO.getGender());
+//            patient.setAge(patientDTO.getAge());
+//            patient.setMedicalHistory(patientDTO.getMedicalHistory());
+//            patient.setRegistrationList(patientDTO.getRegistrationList());
+//
+//            //get registration list
+//            List<Registration> registrations = new ArrayList<>();
+//            patient.setRegistrationList(registrations);
+//
+//            List<TherapyProgram> selectedPrograms = therapyProgramDAO.getTherapyProgramsBySelectedIds(session, selectedIdList);
+//            System.out.println("Here is therapy programs selected by patient: " + selectedPrograms);
+//
+//            for (TherapyProgram therapyProgram : selectedPrograms) {
+//                Registration registration = new Registration();
+//                RegistrationId regId = new RegistrationId();
+//                regId.setPatientId(patient.getId());
+//                regId.setTherapyProgramId(therapyProgram.getProgramId());
+//                registration.setId(regId);
+//                registration.setDate(Date.valueOf("2025-05-01"));
+//                registration.setPayment(therapyProgram.getFee());
+//                registration.setPatient(patient);
+//                registration.setTherapy_program(therapyProgram);
+//                registrations.add(registration);
+//
+//                // STEP 3: Persist the patient and cascade save the registrations
+////                session.persist(patient);
+////                session.getTransaction().commit();
+//            }
+//
+//            return dao.save(patient, session, transaction);
+//
+//        } catch (Exception e) {
+//            transaction.rollback();
+//            System.out.println("<---- Unable to save patient ---->");
+//            return false;
+//
+//        } finally {
+////            session.close();
+//            System.out.println("I'm here");
+//        }
+        return true;
 
     }
 
     @Override
-    public boolean update(PatientDTO patientDTO) {
+    public boolean update(PatientDTO patientDTO, List<String> selectedIdList) {
         Patient patient = new Patient();
 
         patient.setId(patientDTO.getId());
@@ -90,7 +92,8 @@ public class PatientBOImpl implements PatientBO {
         patient.setAddress(patientDTO.getAddress());
         patient.setGender(patientDTO.getGender());
         patient.setAge(patientDTO.getAge());
-        patient.setRegistrationList(patientDTO.getRegistrationList());
+        patient.setMedicalHistory(patientDTO.getMedicalHistory());
+        patient.setRegistrations(patientDTO.getRegistrationList());
 
         return dao.update(patient);
     }
@@ -114,7 +117,8 @@ public class PatientBOImpl implements PatientBO {
                     patient.getAddress(),
                     patient.getGender(),
                     patient.getAge(),
-                    patient.getRegistrationList()
+                    patient.getMedicalHistory(),
+                    patient.getRegistrations()
             ));
         }
         return patientDTOArrayList;

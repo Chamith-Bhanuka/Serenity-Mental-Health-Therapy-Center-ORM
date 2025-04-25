@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0" stylesheets="@../styles/TherapistScheduleAvailabilityStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mentalHealthTherapyCenter.controller.TherapistScheduleAvailabilityController">
+   <children>
+      <VBox layoutX="200.0" layoutY="84.0" prefHeight="200.0" prefWidth="100.0" styleClass="history-pane" stylesheets="@../styles/TherapistScheduleAvailabilityStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox>
+               <children>
+                  <Label text="Therapist Availability &amp; Schedule Sessions" textFill="#1c5929">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Pane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" HBox.hgrow="ALWAYS" />
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-analyze.gif" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox spacing="5.0">
+               <children>
+                  <Label text="Therapist ID: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTherapistId" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Pane maxHeight="20.0" minWidth="20.0" prefHeight="20.0" HBox.hgrow="ALWAYS" />
+                  <Label layoutX="10.0" layoutY="10.0" text="Therapist Name: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtName" layoutX="96.0" layoutY="10.0" textFill="DARKSEAGREEN">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <TextArea fx:id="txtHistoryArea" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

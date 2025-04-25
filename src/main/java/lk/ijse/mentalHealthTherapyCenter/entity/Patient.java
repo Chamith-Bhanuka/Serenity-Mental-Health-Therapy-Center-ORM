@@ -3,6 +3,7 @@ package lk.ijse.mentalHealthTherapyCenter.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -24,9 +25,14 @@ public class Patient implements SuperEntity{
     private String gender;
     private int age;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<Registration> registrationList;
+    @Column(length = 1000)
+    private String medicalHistory;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<Session> sessions;
+    // A patient can register multiple therapy programs
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Registration> registrations = new ArrayList<>();
+
+    // A patient may also have multiple therapy sessions schedule
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Session> sessions = new ArrayList<>();
 }

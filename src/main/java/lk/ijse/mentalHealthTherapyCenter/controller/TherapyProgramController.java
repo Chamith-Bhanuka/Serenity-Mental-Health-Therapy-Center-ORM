@@ -63,6 +63,9 @@ public class TherapyProgramController implements Initializable {
     @FXML
     private TextField txtProgramName;
 
+    @FXML
+    private TextArea txtDescription;
+
 
     TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.TherapyProgram);
 
@@ -101,12 +104,22 @@ public class TherapyProgramController implements Initializable {
 
         String id = txtProgramId.getText();
         String name = txtProgramName.getText();
-        String duration = txtDuration.getText() + cmbDuration.getValue();
-        double fee = Double.parseDouble(txtFee.getText());
 
-        TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(id, name, duration, fee);
+        String duration;
+
+        if (cmbDuration.getSelectionModel().getSelectedItem() != null) {
+            duration = txtDuration.getText() + cmbDuration.getValue();
+        } else {
+            duration = txtDuration.getText();
+        }
+
+        double fee = Double.parseDouble(txtFee.getText());
+        String description = txtDescription.getText();
+
+        TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(id, name, duration, fee, description);
 
         boolean isSaved = therapyProgramBO.save(therapyProgramDTO);
+        System.out.println("from controller: " + therapyProgramDTO);
 
         if (isSaved) {
             new Alert(Alert.AlertType.INFORMATION, "Program Saved Successfully").show();
@@ -125,8 +138,9 @@ public class TherapyProgramController implements Initializable {
         String name = txtProgramName.getText();
         String duration = txtDuration.getText() + cmbDuration.getValue();
         double fee = Double.parseDouble(txtFee.getText());
+        String description = txtDescription.getText();
 
-        TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(id, name, duration, fee);
+        TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(id, name, duration, fee, description);
 
         boolean isUpdated = therapyProgramBO.update(therapyProgramDTO);
 
@@ -146,6 +160,10 @@ public class TherapyProgramController implements Initializable {
 
         ObservableList<String> durations = FXCollections.observableArrayList("Months", "Weeks", "Days");
         cmbDuration.setItems(durations);
+
+        txtDescription.setWrapText(true);
+
+        txtProgramId.setEditable(false);
     }
 
     private void setTableColumns() {
@@ -158,11 +176,14 @@ public class TherapyProgramController implements Initializable {
     private void refreshPage() {
         refreshTable();
 
-        txtProgramId.setText("");
+        String nextTherapyProgramId = therapyProgramBO.generateNewID();
+        txtProgramId.setText(nextTherapyProgramId);
+
         txtProgramName.setText("");
         txtDuration.setText("");
         txtFee.setText("");
         cmbDuration.getSelectionModel().clearSelection();
+        txtDescription.setText("");
 
         btnSave.setDisable(false);
 
@@ -181,7 +202,8 @@ public class TherapyProgramController implements Initializable {
                     therapyProgramDTO.getProgramId(),
                     therapyProgramDTO.getProgramName(),
                     therapyProgramDTO.getDuration(),
-                    therapyProgramDTO.getFee()
+                    therapyProgramDTO.getFee(),
+                    therapyProgramDTO.getDescription()
             );
             therapyProgramTMS.add(therapyProgramTM);
         }
@@ -203,6 +225,8 @@ public class TherapyProgramController implements Initializable {
             btnDelete.setDisable(false);
             btnReset.setDisable(false);
             btnUpdate.setDisable(false);
+
+            txtDescription.setText(selectedItem.getDescription());
         }
     }
 }

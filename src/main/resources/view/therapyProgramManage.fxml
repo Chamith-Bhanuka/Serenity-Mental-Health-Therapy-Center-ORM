@@ -5,11 +5,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="541.6" minWidth="873.8" styleClass="program-management-root" stylesheets="@../styles/therapyProgramStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mentalHealthTherapyCenter.controller.TherapyProgramController">
     <children>
@@ -30,6 +32,15 @@
 
                 <!-- Form Container for Therapy Program details -->
                 <VBox prefHeight="450.0" prefWidth="332.0" spacing="15" styleClass="form-container">
+               <VBox alignment="CENTER" layoutX="30.0" layoutY="30.0" spacing="5">
+                  <children>
+                     <Label style="-fx-text-fill: #556B2F; -fx-font-size: 20;" text="Manage Therapy Programs" textFill="#00796b">
+                        <font>
+                           <Font size="1.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </VBox>
 
                     <!-- Program ID Field -->
                     <VBox spacing="5">
@@ -62,7 +73,10 @@
                     </VBox>
 
                     <!-- Spacer to push the buttons to the bottom -->
-                    <VBox VBox.vgrow="ALWAYS" />
+                    <VBox VBox.vgrow="ALWAYS">
+                  <children>
+                     <TextArea fx:id="txtDescription" prefHeight="200.0" prefWidth="200.0" promptText="Add description about therapy program here..." styleClass="transparent-textfield" VBox.vgrow="ALWAYS" />
+                  </children></VBox>
 
                     <!-- Button Group -->
                     <HBox alignment="center" spacing="10">

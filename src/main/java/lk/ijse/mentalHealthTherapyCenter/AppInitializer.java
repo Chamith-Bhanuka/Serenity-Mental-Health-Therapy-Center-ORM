@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lk.ijse.mentalHealthTherapyCenter.config.FactoryConfiguration;
+import lk.ijse.mentalHealthTherapyCenter.entity.User;
+import lk.ijse.mentalHealthTherapyCenter.util.PasswordUtil;
 import org.hibernate.Session;
 
 import java.io.IOException;
@@ -27,6 +29,29 @@ public class AppInitializer extends Application {
     public static void main(String[] args) {
         Session session = FactoryConfiguration.getInstance().getSession();
         launch();
+
+//         int id = 1;
+//         String name = "Admin";
+//         String password = "1234";
+//         String role = "Admin";
+//         String contact = "0112564897";
+//         String email = "admin@gmail.com";
+//
+//        String hashedPassword = PasswordUtil.hashPassword(password);
+//
+//        User user = new User();
+//        user.setName(name);
+//        user.setPassword(hashedPassword);
+//        user.setRole(role);
+//        user.setContact(contact);
+//        user.setEmail(email);
+//
+//
+//        session.beginTransaction();
+//        session.persist(user);
+
+
+
         session.close();
     }
 }

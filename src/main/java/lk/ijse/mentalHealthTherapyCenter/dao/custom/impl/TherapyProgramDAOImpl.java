@@ -2,6 +2,7 @@ package lk.ijse.mentalHealthTherapyCenter.dao.custom.impl;
 
 import lk.ijse.mentalHealthTherapyCenter.config.FactoryConfiguration;
 import lk.ijse.mentalHealthTherapyCenter.dao.custom.TherapyProgramDAO;
+import lk.ijse.mentalHealthTherapyCenter.entity.Therapist;
 import lk.ijse.mentalHealthTherapyCenter.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -60,6 +61,17 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
             if (therapyProgram == null) {
                 return false;
             }
+
+            for (Therapist therapist : new ArrayList<>(therapyProgram.getTherapists())) {
+                // Remove the program from the therapist's list.
+                therapist.getTherapyPrograms().remove(therapyProgram);
+                session.merge(therapist);
+            }
+
+
+            // clear all associations
+            therapyProgram.getTherapists().clear();
+            session.merge(therapyProgram);
             session.remove(therapyProgram);
             transaction.commit();
             return true;
@@ -86,7 +98,24 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
 
     @Override
     public Optional<String> getLastPk() {
-        return Optional.empty();
+        Session session = factoryConfiguration.getSession();
+        try {
+            List <String> result = session.createQuery(
+                    "SELECT tp.programId FROM TherapyProgram tp ORDER BY tp.programId DESC",
+                    String.class)
+                    .setMaxResults(1)
+                    .getResultList();
+
+            if (result.isEmpty()) {
+                return Optional.empty();
+            } else {
+                return Optional.of(result.get(0));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
     }
 
 

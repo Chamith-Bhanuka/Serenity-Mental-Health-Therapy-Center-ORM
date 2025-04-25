@@ -8,6 +8,7 @@ import lk.ijse.mentalHealthTherapyCenter.entity.TherapyProgram;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class TherapyProgramBOImpl implements TherapyProgramBO {
 
@@ -21,6 +22,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
         therapyProgram.setProgramName(therapyProgramDTO.getProgramName());
         therapyProgram.setDuration(therapyProgramDTO.getDuration());
         therapyProgram.setFee(therapyProgramDTO.getFee());
+        therapyProgram.setDescription(therapyProgramDTO.getDescription());
 
         return dao.save(therapyProgram);
     }
@@ -33,6 +35,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
         therapyProgram.setProgramName(therapyProgramDTO.getProgramName());
         therapyProgram.setDuration(therapyProgramDTO.getDuration());
         therapyProgram.setFee(therapyProgramDTO.getFee());
+        therapyProgram.setDescription(therapyProgramDTO.getDescription());
 
         return dao.update(therapyProgram);
     }
@@ -52,10 +55,34 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
                     therapyProgram.getProgramId(),
                     therapyProgram.getProgramName(),
                     therapyProgram.getDuration(),
-                    therapyProgram.getFee()
+                    therapyProgram.getFee(),
+                    therapyProgram.getDescription()
             ));
         }
         return therapyProgramDTOArrayList;
+    }
+
+    @Override
+    public String generateNewID() {
+        Optional<String> lastPk = dao.getLastPk();
+        String lastId = lastPk.orElse("TP001");
+
+        if (lastId.startsWith("TP")) {
+
+            String numericPart = lastId.substring(2);
+
+            try {
+                int numericId = Integer.parseInt(numericPart);
+
+                int newIdIndex = numericId + 1;
+
+                return String.format("TP%03d", newIdIndex);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid last id format");
+                return "TP000";
+            }
+        }
+        return "TP001";
     }
 
 }

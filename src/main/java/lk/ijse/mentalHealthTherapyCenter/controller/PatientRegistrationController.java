@@ -5,11 +5,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijse.mentalHealthTherapyCenter.bo.BOFactory;
 import lk.ijse.mentalHealthTherapyCenter.bo.custom.PatientBO;
 import lk.ijse.mentalHealthTherapyCenter.bo.custom.TherapyProgramBO;
@@ -20,6 +26,7 @@ import lk.ijse.mentalHealthTherapyCenter.entity.TherapyProgram;
 import lk.ijse.mentalHealthTherapyCenter.view.tdm.PatientTM;
 import lk.ijse.mentalHealthTherapyCenter.view.tdm.ProgramSelectTM;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +81,9 @@ public class PatientRegistrationController implements Initializable {
     private TableColumn<ProgramSelectTM, String> colProgramName;
 
     @FXML
+    private TableColumn<PatientTM, String> colHistory;
+
+    @FXML
     private Label lblTotalBilling;
 
     @FXML
@@ -106,6 +116,9 @@ public class PatientRegistrationController implements Initializable {
     @FXML
     private Button btnAddProgram;
 
+    @FXML
+    private TextArea txtMedicalHistory;
+
 
     TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.TherapyProgram);
     PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBO(BOFactory.BOType.Patient);
@@ -129,30 +142,74 @@ public class PatientRegistrationController implements Initializable {
     }
 
     @FXML
-    void onRegisterPatientClicked(ActionEvent event) {
-        System.out.println("Register patient clicked");
+    void onRegisterPatientClicked(ActionEvent event) throws IOException {
+//        System.out.println("Register patient clicked");
 
-        int id = Integer.parseInt(txtPatientId.getText());
+
+//        String name = txtPatientName.getText();
+//        String email = txtEmail.getText();
+//        String phone = txtPhone.getText();
+//        String address = txtAddress.getText();
+//        String gender = txtGender.getText();
+//        String medicalHistory = txtMedicalHistory.getText();
+//        int age = Integer.parseInt(txtAge.getText());
+//
+//        List<Registration> registrationList = new ArrayList<>();
+//        PatientDTO patientDTO = new PatientDTO(id, name, email, phone, address, gender, age, medicalHistory, registrationList);
+//
+//        boolean isSaved = patientBO.save(patientDTO, selectedIdList);
+//        System.out.println("boolean save value: " + isSaved);
+//
+//        if (isSaved) {
+//            new Alert(Alert.AlertType.INFORMATION, "Patient Registered successfully..!").show();
+//            refreshPage();
+//        } else {
+//            new Alert(Alert.AlertType.ERROR, "Failed to Register Patient..!", ButtonType.OK).show();
+//
+//        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/payment.fxml"));
+        Parent load = loader.load();
+
+        PaymentController paymentController = loader.getController();
+
+        if (paymentController == null) {
+            System.out.println("Error: PaymentController is NULL!");
+        } else {
+            System.out.println("Controller is found!");
+        }
+
+
+//        paymentController.setName(txtPatientName.getText());
+//        System.out.println("From patient controller patient name: " + txtPatientName.getText());
+//        paymentController.setEmail(txtEmail.getText());
+//        paymentController.setPhone(txtPhone.getText());
+//        paymentController.setAddress(txtAddress.getText());
+//        paymentController.setGender(txtGender.getText());
+//        paymentController.setMedicalHistory(txtMedicalHistory.getText());
+//        paymentController.setAge(Integer.parseInt(txtAge.getText()));
+//        paymentController.setSelectedIdList(selectedIdList);
+
         String name = txtPatientName.getText();
         String email = txtEmail.getText();
         String phone = txtPhone.getText();
         String address = txtAddress.getText();
         String gender = txtGender.getText();
+        String medicalHistory = txtMedicalHistory.getText();
         int age = Integer.parseInt(txtAge.getText());
+        List<String> selectedIdList = getSelectedIds();
 
-        List<Registration> registrationList = new ArrayList<>();
-        PatientDTO patientDTO = new PatientDTO(id, name, email, phone, address, gender, age, registrationList);
+        paymentController.setup(name, email, phone, address, gender, medicalHistory, age, selectedIdList);
 
-        boolean isSaved = patientBO.save(patientDTO, selectedIdList);
-        System.out.println("boolean save value: " + isSaved);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(load));
+        stage.setTitle("Patient Registration");
 
-        if (isSaved) {
-            new Alert(Alert.AlertType.INFORMATION, "Patient Registered successfully..!").show();
-            refreshPage();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to Register Patient..!", ButtonType.OK).show();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Window underWindow = btnAddProgram.getScene().getWindow();
+        stage.initOwner(underWindow);
 
-        }
+        stage.showAndWait();
 
 
     }
@@ -167,6 +224,29 @@ public class PatientRegistrationController implements Initializable {
     @FXML
     void onUpdateClick(ActionEvent event) {
         System.out.println("Update patient clicked");
+
+        int id = Integer.parseInt(txtPatientId.getText());
+        String name = txtPatientName.getText();
+        String email = txtEmail.getText();
+        String phone = txtPhone.getText();
+        String address = txtAddress.getText();
+        String gender = txtGender.getText();
+        String medicalHistory = txtMedicalHistory.getText();
+        int age = Integer.parseInt(txtAge.getText());
+
+        List<Registration> registrationList = new ArrayList<>();
+        PatientDTO patientDTO = new PatientDTO(id, name, email, phone, address, gender, age, medicalHistory, registrationList);
+
+        boolean isUpdated = patientBO.update(patientDTO, selectedIdList);
+
+        if (isUpdated) {
+            new Alert(Alert.AlertType.INFORMATION, "Patient Updated successfully..!").show();
+            refreshPage();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Failed to Update Patient..!", ButtonType.OK).show();
+
+        }
+
 
     }
 
@@ -208,6 +288,7 @@ public class PatientRegistrationController implements Initializable {
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
         colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
+        colHistory.setCellValueFactory(new PropertyValueFactory<>("medicalHistory"));
     }
 
     private void refreshTable() {
@@ -223,7 +304,8 @@ public class PatientRegistrationController implements Initializable {
                     patientDTO.getPhone(),
                     patientDTO.getAddress(),
                     patientDTO.getGender(),
-                    patientDTO.getAge()
+                    patientDTO.getAge(),
+                    patientDTO.getMedicalHistory()
             );
             patientTMS.add(patientTM);
         }
@@ -240,6 +322,7 @@ public class PatientRegistrationController implements Initializable {
         txtAddress.setText("");
         txtGender.setText("");
         txtAge.setText("");
+        txtMedicalHistory.setText("");
         tblTherapyPrograms.getSelectionModel().clearSelection();
 
         btnRegister.setDisable(false);
@@ -262,6 +345,7 @@ public class PatientRegistrationController implements Initializable {
             txtAddress.setText(selectedItem.getAddress());
             txtGender.setText(selectedItem.getGender());
             txtAge.setText(String.valueOf(selectedItem.getAge()));
+            txtMedicalHistory.setText(selectedItem.getMedicalHistory());
 
             btnRegister.setDisable(true);
 

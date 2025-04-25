@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -16,15 +17,22 @@ import java.util.List;
 @Table(name = "therapy_program")
 public class TherapyProgram implements SuperEntity{
     @Id
+    @Column(name = "program_id", nullable = false)
     private String programId;
 
     private String programName;
-    private String duration;
+    private String duration; // weeks, months
     private Double fee;
+    private String description; //details about the program
 
-//    @OneToMany(mappedBy = "therapy_program", cascade = CascadeType.ALL)
-//    private List<Registration> registrationList;
+    @ManyToMany(mappedBy = "therapyPrograms")
+    private List<Therapist> therapists = new ArrayList<>();
 
-    @OneToMany(mappedBy = "program", cascade = CascadeType.ALL)
-    private List<Session> sessions;
+    // registrations for the program
+    @OneToMany(mappedBy = "therapyProgram", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Registration> registrations = new ArrayList<>();
+
+    // sessions schedule under this program
+    @OneToMany(mappedBy = "therapyProgram", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Session> sessions = new ArrayList<>();
 }
