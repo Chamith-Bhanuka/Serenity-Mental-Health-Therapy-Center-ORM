@@ -1,6 +1,7 @@
 package lk.ijse.mentalHealthTherapyCenter.dao.custom;
 
 import lk.ijse.mentalHealthTherapyCenter.dao.CrudDAO;
+import lk.ijse.mentalHealthTherapyCenter.dto.TherapistDTO;
 import lk.ijse.mentalHealthTherapyCenter.entity.Session;
 import lk.ijse.mentalHealthTherapyCenter.entity.Therapist;
 import lk.ijse.mentalHealthTherapyCenter.entity.TherapyProgram;
@@ -13,4 +14,5 @@ public interface TherapistDAO extends CrudDAO<Therapist, String> {
     List<Session> getTherapistSchedule(int therapistId);
     boolean save(org.hibernate.Session session, Therapist therapist);
     boolean update(org.hibernate.Session session, Therapist therapist);
+    List<Therapist> getTherapistsByProgramId(String programId);
 }

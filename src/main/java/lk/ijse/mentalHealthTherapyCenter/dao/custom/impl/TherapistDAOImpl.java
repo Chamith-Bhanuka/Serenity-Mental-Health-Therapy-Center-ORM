@@ -2,6 +2,7 @@ package lk.ijse.mentalHealthTherapyCenter.dao.custom.impl;
 
 import lk.ijse.mentalHealthTherapyCenter.config.FactoryConfiguration;
 import lk.ijse.mentalHealthTherapyCenter.dao.custom.TherapistDAO;
+import lk.ijse.mentalHealthTherapyCenter.dto.TherapistDTO;
 import lk.ijse.mentalHealthTherapyCenter.entity.Therapist;
 import lk.ijse.mentalHealthTherapyCenter.entity.TherapyProgram;
 import org.hibernate.Session;
@@ -69,7 +70,13 @@ public class TherapistDAOImpl implements TherapistDAO {
 
     @Override
     public Optional<Therapist> findByPk(String pk) {
-        return Optional.empty();
+        Session session = factoryConfiguration.getSession();
+        try {
+            Therapist therapist = session.find(Therapist.class, pk);
+            return Optional.ofNullable(therapist);
+        } finally {
+            session.close();
+        }
     }
 
     @Override
@@ -162,6 +169,22 @@ public class TherapistDAOImpl implements TherapistDAO {
             System.out.println("Unable to update therapist");
             e.printStackTrace();
             return false;
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List<Therapist> getTherapistsByProgramId(String programId) {
+        Session session = factoryConfiguration.getSession();
+
+        try {
+            String sql = "SELECT t.* FROM therapist t " +
+                    "INNER JOIN therapist_program tp ON t.therapist_id = tp.therapist_id " +
+                    "WHERE tp.program_id = :programId";
+            Query<Therapist> query = session.createNativeQuery(sql, Therapist.class);
+            query.setParameter("programId", programId);
+            return query.getResultList();
         } finally {
             session.close();
         }

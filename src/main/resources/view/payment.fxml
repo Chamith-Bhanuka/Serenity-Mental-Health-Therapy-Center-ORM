@@ -21,11 +21,20 @@
          <children>
             <VBox fx:id="vbxMsg" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" visible="false">
                <children>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8-done%20(1).gif" />
-                     </image>
-                  </ImageView>
+                  <StackPane>
+                     <children>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../images/icons8-done%20(1).gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="385.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8-done%20(1).gif" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
                   <Label text="Payment completed successfully, and the patient has been registered!">
                      <VBox.margin>
                         <Insets top="25.0" />
@@ -34,7 +43,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" styleClass="transparent-button" stylesheets="@../styles/PaymentStyles.css" text="Print Bill">
+                  <Button mnemonicParsing="false" onAction="#btnPrintBillClick" prefHeight="30.0" prefWidth="100.0" styleClass="transparent-button" stylesheets="@../styles/PaymentStyles.css" text="Print Bill">
                      <VBox.margin>
                         <Insets top="25.0" />
                      </VBox.margin>

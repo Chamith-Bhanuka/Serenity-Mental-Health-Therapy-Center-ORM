@@ -7,5 +7,5 @@ import org.hibernate.Session;
 import java.util.List;
 
 public interface TherapyProgramDAO  extends CrudDAO<TherapyProgram,String> {
-    public List<TherapyProgram> getTherapyProgramsBySelectedIds(Session session, List<String> selectedIds);
+    List<TherapyProgram> getTherapyProgramsBySelectedIds(Session session, List<String> selectedIds);
 }

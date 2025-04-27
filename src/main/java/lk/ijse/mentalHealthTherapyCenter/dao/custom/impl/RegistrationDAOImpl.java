@@ -1,10 +1,8 @@
 package lk.ijse.mentalHealthTherapyCenter.dao.custom.impl;
 
-import lk.ijse.mentalHealthTherapyCenter.bo.BOFactory;
-import lk.ijse.mentalHealthTherapyCenter.bo.custom.RegistrationBO;
 import lk.ijse.mentalHealthTherapyCenter.config.FactoryConfiguration;
-import lk.ijse.mentalHealthTherapyCenter.dao.custom.PatientDAO;
-import lk.ijse.mentalHealthTherapyCenter.entity.Patient;
+import lk.ijse.mentalHealthTherapyCenter.dao.custom.RegistrationDAO;
+import lk.ijse.mentalHealthTherapyCenter.entity.Registration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -12,17 +10,18 @@ import org.hibernate.query.Query;
 import java.util.List;
 import java.util.Optional;
 
-public class PatientDAOImpl implements PatientDAO {
+public class RegistrationDAOImpl implements RegistrationDAO {
 
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
     @Override
-    public boolean save(Patient patient) {
+    public boolean save(Registration registration) {
+        System.out.println("registration to dao impl: " + registration.getTherapyProgram());
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
-            session.persist(patient);
+            session.persist(registration);
             transaction.commit();
             return true;
         } catch (Exception e) {
@@ -34,12 +33,12 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public boolean update(Patient patient) {
+    public boolean update(Registration registration) {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
-            session.merge(patient);
+            session.merge(registration);
             transaction.commit();
             return true;
         } catch (Exception e) {
@@ -56,12 +55,12 @@ public class PatientDAOImpl implements PatientDAO {
         Transaction transaction = session.beginTransaction();
 
         try {
-            Patient patient = session.get(Patient.class, pk);
+            Registration registration = session.get(Registration.class, pk);
 
-            if (patient == null) {
+            if (registration == null) {
                 return false;
             }
-            session.remove(patient);
+            session.remove(registration);
             transaction.commit();
             return true;
         } catch (Exception e) {
@@ -73,19 +72,20 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public List<Patient> getAll() {
+    public List<Registration> getAll() {
         Session session = factoryConfiguration.getSession();
-        Query query = session.createQuery("FROM Patient", Patient.class);
-        List<Patient> patients = query.list();
-        return patients;
+        try {
+            return session.createQuery("from Registration", Registration.class).getResultList();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
-    public Optional<Patient> findByPk(String pk) {
-        Session session = factoryConfiguration.getSession();  // Assume "emf" is your EntityManagerFactory instance.
+    public Optional<Registration> findByPk(String pk) {
+        Session session = factoryConfiguration.getSession();
         try {
-            Patient patient = session.find(Patient.class, pk);
-            return Optional.ofNullable(patient);
+            return Optional.ofNullable(session.find(Registration.class, pk));
         } finally {
             session.close();
         }
@@ -94,24 +94,5 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public Optional<String> getLastPk() {
         return Optional.empty();
-    }
-
-    @Override
-    public boolean save(Patient patient, Session session, Transaction transaction) {
-        try {
-            System.out.println("Persisting patient: " + patient.getId());
-            System.out.println("Patient selected programs: " + patient.getRegistrations());
-            session.persist(patient);
-            transaction.commit();
-            System.out.println("Transaction committed");
-            return true;
-        } catch (Exception e) {
-            transaction.rollback();
-            System.out.println("transaction rollback from dao");
-            e.printStackTrace();
-            return false;
-        } finally {
-            session.close();
-        }
     }
 }

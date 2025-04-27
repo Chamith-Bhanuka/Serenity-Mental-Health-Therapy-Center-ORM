@@ -105,29 +105,52 @@ public class TherapyProgramController implements Initializable {
         String id = txtProgramId.getText();
         String name = txtProgramName.getText();
 
-        String duration;
+        String namePattern = "^[A-Za-z ]+$";
+        String integerPattern = "^-?\\d+$";
+        String feePattern = "^-?\\d+(\\.\\d{1,2})?$";
 
-        if (cmbDuration.getSelectionModel().getSelectedItem() != null) {
-            duration = txtDuration.getText() + cmbDuration.getValue();
-        } else {
-            duration = txtDuration.getText();
+        boolean isValidName = txtProgramName.getText().matches(namePattern);
+        boolean isValidDuration = txtDuration.getText().matches(integerPattern);
+        boolean isValidFee = txtFee.getText().matches(feePattern);
+
+        txtProgramName.setStyle(txtProgramName.getStyle() + ";-fx-border-color: #cccccc;");
+        txtDuration.setStyle(txtDuration.getStyle() + ";-fx-border-color: #cccccc;");
+        txtFee.setStyle(txtFee.getStyle() + ";-fx-border-color: #cccccc;");
+
+        if (!isValidName) {
+            txtProgramName.setStyle(txtProgramName.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isValidDuration) {
+            txtDuration.setStyle(txtDuration.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isValidFee) {
+            txtFee.setStyle(txtFee.getStyle() + ";-fx-border-color: red;");
         }
 
-        double fee = Double.parseDouble(txtFee.getText());
-        String description = txtDescription.getText();
+        if (isValidName && isValidDuration && isValidFee) {
+            String duration;
 
-        TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(id, name, duration, fee, description);
+            if (cmbDuration.getSelectionModel().getSelectedItem() != null) {
+                duration = txtDuration.getText() + " " + cmbDuration.getValue();
+            } else {
+                duration = txtDuration.getText() + " Months";
+            }
 
-        boolean isSaved = therapyProgramBO.save(therapyProgramDTO);
-        System.out.println("from controller: " + therapyProgramDTO);
+            double fee = Double.parseDouble(txtFee.getText());
+            String description = txtDescription.getText();
 
-        if (isSaved) {
-            new Alert(Alert.AlertType.INFORMATION, "Program Saved Successfully").show();
-            refreshPage();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Program Saving Failed").show();
+            TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(id, name, duration, fee, description);
+
+            boolean isSaved = therapyProgramBO.save(therapyProgramDTO);
+            System.out.println("from controller: " + therapyProgramDTO);
+
+            if (isSaved) {
+                new Alert(Alert.AlertType.INFORMATION, "Program Saved Successfully").show();
+                refreshPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Program Saving Failed").show();
+            }
         }
-
     }
 
     @FXML
@@ -136,20 +159,53 @@ public class TherapyProgramController implements Initializable {
 
         String id = txtProgramId.getText();
         String name = txtProgramName.getText();
-        String duration = txtDuration.getText() + cmbDuration.getValue();
+
+        String duration;
+
+        if (cmbDuration.getSelectionModel().getSelectedItem() != null) {
+            duration = txtDuration.getText() + " " + cmbDuration.getValue();
+        } else {
+            duration = txtDuration.getText() + " Months";
+        }
+
         double fee = Double.parseDouble(txtFee.getText());
         String description = txtDescription.getText();
 
-        TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(id, name, duration, fee, description);
+        String namePattern = "^[A-Za-z ]+$";
+        String integerPattern = "^-?\\d+$";
+        String feePattern = "^-?\\d+(\\.\\d{1,2})?$";
 
-        boolean isUpdated = therapyProgramBO.update(therapyProgramDTO);
+        boolean isValidName = txtProgramName.getText().matches(namePattern);
+        boolean isValidDuration = txtDuration.getText().matches(integerPattern);
+        boolean isValidFee = txtFee.getText().matches(feePattern);
 
-        if (isUpdated) {
-            new Alert(Alert.AlertType.INFORMATION, "Program Updated Successfully").show();
-            refreshPage();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Program Updating Failed").show();
+        txtProgramName.setStyle(txtProgramName.getStyle() + ";-fx-border-color: #cccccc;");
+        txtDuration.setStyle(txtDuration.getStyle() + ";-fx-border-color: #cccccc;");
+        txtFee.setStyle(txtFee.getStyle() + ";-fx-border-color: #cccccc;");
+
+        if (!isValidName) {
+            txtProgramName.setStyle(txtProgramName.getStyle() + ";-fx-border-color: red;");
         }
+        if (!isValidDuration) {
+            txtDuration.setStyle(txtDuration.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isValidFee) {
+            txtFee.setStyle(txtFee.getStyle() + ";-fx-border-color: red;");
+        }
+
+        if (isValidName && isValidDuration && isValidFee) {
+            TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(id, name, duration, fee, description);
+
+            boolean isUpdated = therapyProgramBO.update(therapyProgramDTO);
+
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Program Updated Successfully").show();
+                refreshPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Program Updating Failed").show();
+            }
+        }
+
     }
 
     @Override

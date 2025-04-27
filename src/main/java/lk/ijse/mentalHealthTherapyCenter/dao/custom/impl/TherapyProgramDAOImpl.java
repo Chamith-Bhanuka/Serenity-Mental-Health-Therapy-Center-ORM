@@ -93,7 +93,14 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
 
     @Override
     public Optional<TherapyProgram> findByPk(String pk) {
-        return Optional.empty();
+        Session session = factoryConfiguration.getSession();
+
+        try {
+            TherapyProgram program = session.find(TherapyProgram.class, pk);
+            return Optional.ofNullable(program);
+        } finally {
+            session.close();
+        }
     }
 
     @Override

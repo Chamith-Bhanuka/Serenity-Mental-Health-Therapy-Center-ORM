@@ -1,9 +1,6 @@
 package lk.ijse.mentalHealthTherapyCenter.bo;
 
-import lk.ijse.mentalHealthTherapyCenter.bo.custom.impl.PatientBOImpl;
-import lk.ijse.mentalHealthTherapyCenter.bo.custom.impl.TherapistBOImpl;
-import lk.ijse.mentalHealthTherapyCenter.bo.custom.impl.TherapyProgramBOImpl;
-import lk.ijse.mentalHealthTherapyCenter.bo.custom.impl.UserBOImpl;
+import lk.ijse.mentalHealthTherapyCenter.bo.custom.impl.*;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -17,7 +14,7 @@ public class BOFactory {
     }
 
     public enum BOType {
-        User, TherapyProgram, Patient, Therapist
+        User, TherapyProgram, Patient, Therapist, Registration, Payment, Session
     }
 
     public SuperBO getBO(BOFactory.BOType type) {
@@ -26,6 +23,9 @@ public class BOFactory {
             case TherapyProgram -> new TherapyProgramBOImpl();
             case Patient -> new PatientBOImpl();
             case Therapist -> new TherapistBOImpl();
+            case Registration -> new RegistrationBOImpl();
+            case Payment -> new PaymentBOImpl();
+            case Session -> new SessionBOImpl();
         };
     }
 }

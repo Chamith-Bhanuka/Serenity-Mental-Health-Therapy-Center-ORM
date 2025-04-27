@@ -141,16 +141,42 @@ public class TherapistManagementController implements Initializable {
         String specialization = txtSpecialization.getText();
         List<TherapyProgram> therapyProgramList = new ArrayList<>();
 
-        TherapistDTO therapistDTO = new TherapistDTO(id, name, email, phone, specialization, therapyProgramList);
+        String namePattern = "^[A-Za-z ]+$";
+        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        String phonePattern = "^(\\d+)||((\\d+\\.)(\\d){2})$";
 
-        boolean isSaved = therapistBO.save(therapistDTO, selectedProgramIds);
+        boolean isValidName = txtName.getText().matches(namePattern);
+        boolean isValidEmail = txtEmail.getText().matches(emailPattern);
+        boolean isValidPhone = txtPhone.getText().matches(phonePattern);
 
-        if (isSaved) {
-            new Alert(Alert.AlertType.INFORMATION, "Therapist Saved..!").show();
-            refreshPage();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Therapist Not Saved..!").show();
+        txtName.setStyle(txtName.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: #b2dfdb;");
+
+
+        if (!isValidName) {
+            txtName.setStyle(txtName.getStyle() + ";-fx-border-color: red;");
         }
+        if (!isValidEmail) {
+            txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isValidPhone) {
+            txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: red;");
+        }
+
+        if (isValidName && isValidEmail && isValidPhone) {
+            TherapistDTO therapistDTO = new TherapistDTO(id, name, email, phone, specialization, therapyProgramList);
+
+            boolean isSaved = therapistBO.save(therapistDTO, selectedProgramIds);
+
+            if (isSaved) {
+                new Alert(Alert.AlertType.INFORMATION, "Therapist Saved..!").show();
+                refreshPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Therapist Not Saved..!").show();
+            }
+        }
+
     }
 
     @FXML
@@ -164,16 +190,42 @@ public class TherapistManagementController implements Initializable {
         String specialization = txtSpecialization.getText();
         List<TherapyProgram> therapyProgramList = new ArrayList<>();
 
-        TherapistDTO therapistDTO = new TherapistDTO(id, name, email, phone, specialization, therapyProgramList);
+        String namePattern = "^[A-Za-z ]+$";
+        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        String phonePattern = "^(\\d+)||((\\d+\\.)(\\d){2})$";
 
-        boolean isUpdated = therapistBO.update(therapistDTO, selectedProgramIds);
+        boolean isValidName = txtName.getText().matches(namePattern);
+        boolean isValidEmail = txtEmail.getText().matches(emailPattern);
+        boolean isValidPhone = txtPhone.getText().matches(phonePattern);
 
-        if (isUpdated) {
-            new Alert(Alert.AlertType.INFORMATION, "Therapist Updated..!").show();
-            refreshPage();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Therapist Not Updated..!").show();
+        txtName.setStyle(txtName.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: #b2dfdb;");
+
+
+        if (!isValidName) {
+            txtName.setStyle(txtName.getStyle() + ";-fx-border-color: red;");
         }
+        if (!isValidEmail) {
+            txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isValidPhone) {
+            txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: red;");
+        }
+
+        if (isValidName && isValidEmail && isValidPhone) {
+            TherapistDTO therapistDTO = new TherapistDTO(id, name, email, phone, specialization, therapyProgramList);
+
+            boolean isUpdated = therapistBO.update(therapistDTO, selectedProgramIds);
+
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Therapist Updated..!").show();
+                refreshPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Therapist Not Updated..!").show();
+            }
+        }
+
     }
 
     @FXML

@@ -90,7 +90,7 @@
                      </VBox.margin>
                      <children>
                         <Label text="Select One from Registered Programs" />
-                        <ComboBox fx:id="cmbRegPrograms" maxWidth="1.7976931348623157E308" onAction="#onRegProgramsClick" prefWidth="150.0" VBox.vgrow="ALWAYS">
+                        <ComboBox fx:id="cmbRegPrograms" maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets left="15.0" right="15.0" />
                            </VBox.margin>
@@ -105,7 +105,7 @@
             <Pane maxWidth="1.0" minWidth="1.0" prefWidth="1.0" styleClass="pane" />
             <VBox maxWidth="1.7976931348623157E308" minWidth="600.0" HBox.hgrow="ALWAYS">
                <children>
-                  <TableView fx:id="tblSessions" prefHeight="258.0" prefWidth="599.0" stylesheets="@../styles/sessionManagementModern.css" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="tblSessions" onMouseClicked="#onTblSessionClick" prefHeight="258.0" prefWidth="599.0" stylesheets="@../styles/sessionManagementModern.css" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="colId" minWidth="71.2" prefWidth="-1.0" text="ID" />
                       <TableColumn fx:id="colDate" minWidth="71.2" prefWidth="-1.0" text="Date" />
@@ -165,7 +165,7 @@
                               <Label text="Select Therapist" />
                            </children>
                         </HBox>
-                        <ComboBox fx:id="searchCombo2" editable="true" maxWidth="1.7976931348623157E308" minHeight="35.0" minWidth="210.0" promptText="Search Patient From ID">
+                        <ComboBox fx:id="cmbTherapist" editable="true" maxWidth="1.7976931348623157E308" minHeight="35.0" minWidth="210.0" promptText="Search Therapist ">
                            <VBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </VBox.margin>

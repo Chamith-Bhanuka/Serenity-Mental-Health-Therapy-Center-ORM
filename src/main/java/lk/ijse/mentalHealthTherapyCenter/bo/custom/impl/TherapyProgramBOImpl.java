@@ -5,6 +5,7 @@ import lk.ijse.mentalHealthTherapyCenter.dao.DAOFactory;
 import lk.ijse.mentalHealthTherapyCenter.dao.custom.TherapyProgramDAO;
 import lk.ijse.mentalHealthTherapyCenter.dto.TherapyProgramDTO;
 import lk.ijse.mentalHealthTherapyCenter.entity.TherapyProgram;
+import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +84,26 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
             }
         }
         return "TP001";
+    }
+
+    @Override
+    public List<TherapyProgram> getTherapyProgramsBySelectedIds(Session session, List<String> selectedIds) {
+        return dao.getTherapyProgramsBySelectedIds(session, selectedIds);
+    }
+
+    @Override
+    public double calculateTotalFee(List<TherapyProgram> therapyPrograms) {
+        if (therapyPrograms == null || therapyPrograms.isEmpty()) {
+            return 0.0;
+        }
+        return therapyPrograms.stream()
+                .mapToDouble(TherapyProgram::getFee)
+                .sum();
+    }
+
+    @Override
+    public TherapyProgram findByPk(String pk) {
+        return dao.findByPk(pk).orElse(null);
     }
 
 }

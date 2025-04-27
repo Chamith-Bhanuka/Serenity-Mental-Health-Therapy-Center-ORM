@@ -26,6 +26,7 @@ import lk.ijse.mentalHealthTherapyCenter.entity.User;
 import lk.ijse.mentalHealthTherapyCenter.util.PasswordUtil;
 import org.hibernate.Session;
 
+import javax.security.auth.login.LoginException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -80,7 +81,7 @@ public class LoginFormController implements Initializable {
 
 
     @FXML
-    void onSignInClicked(ActionEvent event) throws IOException {
+    void onSignInClicked(ActionEvent event) throws IOException, LoginException {
         System.out.println("onSignInClicked");
 //        startLoadingProcess();
 
@@ -99,6 +100,8 @@ public class LoginFormController implements Initializable {
 
         lblErrorMessege.setText("Invalid username or password");
         lblErrorMessege.setVisible(true);
+
+        throw new LoginException("Invalid username or password. Please try again.");
 
     }
 

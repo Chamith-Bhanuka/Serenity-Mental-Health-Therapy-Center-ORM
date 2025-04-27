@@ -1,6 +1,5 @@
 package lk.ijse.mentalHealthTherapyCenter.controller;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,20 +17,17 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import lk.ijse.mentalHealthTherapyCenter.bo.BOFactory;
 import lk.ijse.mentalHealthTherapyCenter.bo.custom.PatientBO;
+import lk.ijse.mentalHealthTherapyCenter.bo.custom.RegistrationBO;
 import lk.ijse.mentalHealthTherapyCenter.bo.custom.TherapyProgramBO;
 import lk.ijse.mentalHealthTherapyCenter.dto.PatientDTO;
 import lk.ijse.mentalHealthTherapyCenter.dto.TherapyProgramDTO;
 import lk.ijse.mentalHealthTherapyCenter.entity.Registration;
-import lk.ijse.mentalHealthTherapyCenter.entity.TherapyProgram;
 import lk.ijse.mentalHealthTherapyCenter.view.tdm.PatientTM;
 import lk.ijse.mentalHealthTherapyCenter.view.tdm.ProgramSelectTM;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class PatientRegistrationController implements Initializable {
 
@@ -121,7 +117,10 @@ public class PatientRegistrationController implements Initializable {
 
 
     TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.TherapyProgram);
+
     PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBO(BOFactory.BOType.Patient);
+
+    RegistrationBO registrationBO = (RegistrationBO) BOFactory.getInstance().getBO(BOFactory.BOType.Registration);
 
     List<String> selectedIdList = new ArrayList<>();
 
@@ -131,7 +130,13 @@ public class PatientRegistrationController implements Initializable {
         selectedIdList = getSelectedIds();
         System.out.println("This is selected ids: " + selectedIdList);
 
-        btnAddProgram.setDisable(true);
+
+        if (selectedIdList!=null && !selectedIdList.isEmpty()) {
+            btnAddProgram.setDisable(true);
+            btnRegister.setDisable(false);
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Please select at least one program").show();
+        }
 
     }
 
@@ -139,78 +144,98 @@ public class PatientRegistrationController implements Initializable {
     void onDeleteClick(ActionEvent event) {
         System.out.println("Delete clicked");
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this patient?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.YES) {
+            boolean isDeleted = patientBO.deleteByPk(txtPatientId.getText());
+
+            if (isDeleted) {
+                new Alert(Alert.AlertType.INFORMATION, "Deleted successfully").show();
+                refreshPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to delete patient").show();
+            }
+        }
+
     }
 
     @FXML
     void onRegisterPatientClicked(ActionEvent event) throws IOException {
-//        System.out.println("Register patient clicked");
+
+        String namePattern = "^[A-Za-z ]+$";
+        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        String phonePattern = "^(\\d+)||((\\d+\\.)(\\d){2})$";
+        String agePattern = "^\\d{1,3}$";
+        String genderPattern = "^(?i)(male|female|other)$";
+
+        boolean isValidName = txtPatientName.getText().matches(namePattern);
+        boolean isValidEmail = txtEmail.getText().matches(emailPattern);
+        boolean isValidPhone = txtPhone.getText().matches(phonePattern);
+        boolean isValidAge = txtAge.getText().matches(agePattern);
+        boolean isValidGender = txtGender.getText().matches(genderPattern);
+
+        txtPatientName.setStyle(txtPatientName.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtAge.setStyle(txtAge.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtGender.setStyle(txtGender.getStyle() + ";-fx-border-color: #b2dfdb;");
 
 
-//        String name = txtPatientName.getText();
-//        String email = txtEmail.getText();
-//        String phone = txtPhone.getText();
-//        String address = txtAddress.getText();
-//        String gender = txtGender.getText();
-//        String medicalHistory = txtMedicalHistory.getText();
-//        int age = Integer.parseInt(txtAge.getText());
-//
-//        List<Registration> registrationList = new ArrayList<>();
-//        PatientDTO patientDTO = new PatientDTO(id, name, email, phone, address, gender, age, medicalHistory, registrationList);
-//
-//        boolean isSaved = patientBO.save(patientDTO, selectedIdList);
-//        System.out.println("boolean save value: " + isSaved);
-//
-//        if (isSaved) {
-//            new Alert(Alert.AlertType.INFORMATION, "Patient Registered successfully..!").show();
-//            refreshPage();
-//        } else {
-//            new Alert(Alert.AlertType.ERROR, "Failed to Register Patient..!", ButtonType.OK).show();
-//
-//        }
+        if (!isValidName) {
+            txtPatientName.setStyle(txtPatientName.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isValidEmail) {
+            txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isValidPhone) {
+            txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: red;");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/payment.fxml"));
-        Parent load = loader.load();
-
-        PaymentController paymentController = loader.getController();
-
-        if (paymentController == null) {
-            System.out.println("Error: PaymentController is NULL!");
-        } else {
-            System.out.println("Controller is found!");
+        }
+        if (!isValidAge) {
+            txtAge.setStyle(txtAge.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isValidGender) {
+            txtGender.setStyle(txtGender.getStyle() + ";-fx-border-color: red;");
         }
 
+        if (isValidAge && isValidEmail && isValidPhone && isValidGender && isValidName) {
 
-//        paymentController.setName(txtPatientName.getText());
-//        System.out.println("From patient controller patient name: " + txtPatientName.getText());
-//        paymentController.setEmail(txtEmail.getText());
-//        paymentController.setPhone(txtPhone.getText());
-//        paymentController.setAddress(txtAddress.getText());
-//        paymentController.setGender(txtGender.getText());
-//        paymentController.setMedicalHistory(txtMedicalHistory.getText());
-//        paymentController.setAge(Integer.parseInt(txtAge.getText()));
-//        paymentController.setSelectedIdList(selectedIdList);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/payment.fxml"));
+            Parent load = loader.load();
 
-        String name = txtPatientName.getText();
-        String email = txtEmail.getText();
-        String phone = txtPhone.getText();
-        String address = txtAddress.getText();
-        String gender = txtGender.getText();
-        String medicalHistory = txtMedicalHistory.getText();
-        int age = Integer.parseInt(txtAge.getText());
-        List<String> selectedIdList = getSelectedIds();
+            PaymentController paymentController = loader.getController();
 
-        paymentController.setup(name, email, phone, address, gender, medicalHistory, age, selectedIdList);
+            if (paymentController == null) {
+                System.out.println("Error: PaymentController is NULL!");
+            } else {
+                System.out.println("Controller is found!");
+            }
 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(load));
-        stage.setTitle("Patient Registration");
+            String name = txtPatientName.getText();
+            String email = txtEmail.getText();
+            String phone = txtPhone.getText();
+            String address = txtAddress.getText();
+            String gender = txtGender.getText();
+            String medicalHistory = txtMedicalHistory.getText();
+            int age = Integer.parseInt(txtAge.getText());
+            List<String> selectedIdList = getSelectedIds();
 
-        stage.initModality(Modality.APPLICATION_MODAL);
-        Window underWindow = btnAddProgram.getScene().getWindow();
-        stage.initOwner(underWindow);
+            paymentController.setup(name, email, phone, address, gender, medicalHistory, age, selectedIdList);
 
-        stage.showAndWait();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(load));
+            stage.setTitle("Patient Registration");
 
+            stage.initModality(Modality.APPLICATION_MODAL);
+            Window underWindow = btnAddProgram.getScene().getWindow();
+            stage.initOwner(underWindow);
+
+            stage.showAndWait();
+
+            refreshPage();
+
+        }
 
     }
 
@@ -225,26 +250,67 @@ public class PatientRegistrationController implements Initializable {
     void onUpdateClick(ActionEvent event) {
         System.out.println("Update patient clicked");
 
-        int id = Integer.parseInt(txtPatientId.getText());
-        String name = txtPatientName.getText();
-        String email = txtEmail.getText();
-        String phone = txtPhone.getText();
-        String address = txtAddress.getText();
-        String gender = txtGender.getText();
-        String medicalHistory = txtMedicalHistory.getText();
-        int age = Integer.parseInt(txtAge.getText());
+        String namePattern = "^[A-Za-z ]+$";
+        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        String phonePattern = "^(\\d+)||((\\d+\\.)(\\d){2})$";
+        String agePattern = "^\\d{1,3}$";
+        String genderPattern = "^(?i)(male|female|other)$";
 
-        List<Registration> registrationList = new ArrayList<>();
-        PatientDTO patientDTO = new PatientDTO(id, name, email, phone, address, gender, age, medicalHistory, registrationList);
+        boolean isValidName = txtPatientName.getText().matches(namePattern);
+        boolean isValidEmail = txtEmail.getText().matches(emailPattern);
+        boolean isValidPhone = txtPhone.getText().matches(phonePattern);
+        boolean isValidAge = txtAge.getText().matches(agePattern);
+        boolean isValidGender = txtGender.getText().matches(genderPattern);
 
-        boolean isUpdated = patientBO.update(patientDTO, selectedIdList);
+        txtPatientName.setStyle(txtPatientName.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtAge.setStyle(txtAge.getStyle() + ";-fx-border-color: #b2dfdb;");
+        txtGender.setStyle(txtGender.getStyle() + ";-fx-border-color: #b2dfdb;");
 
-        if (isUpdated) {
-            new Alert(Alert.AlertType.INFORMATION, "Patient Updated successfully..!").show();
-            refreshPage();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to Update Patient..!", ButtonType.OK).show();
+        if (!isValidName) {
+            txtPatientName.setStyle(txtPatientName.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isValidEmail) {
+            txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isValidPhone) {
+            txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: red;");
 
+        }
+        if (!isValidAge) {
+            txtAge.setStyle(txtAge.getStyle() + ";-fx-border-color: red;");
+        }
+        if (!isValidGender) {
+            txtGender.setStyle(txtGender.getStyle() + ";-fx-border-color: red;");
+        }
+
+        if (isValidAge && isValidEmail && isValidPhone && isValidGender && isValidName) {
+            int id = Integer.parseInt(txtPatientId.getText());
+            String name = txtPatientName.getText();
+            String email = txtEmail.getText();
+            String phone = txtPhone.getText();
+            String address = txtAddress.getText();
+            String gender = txtGender.getText();
+            String medicalHistory = txtMedicalHistory.getText();
+            int age = Integer.parseInt(txtAge.getText());
+
+            Optional<Registration> optionalRegistration = registrationBO.findByPk(String.valueOf(id));
+            List<Registration> registrationList = new ArrayList<>();
+
+            optionalRegistration.ifPresent(registrationList::add);
+
+            PatientDTO patientDTO = new PatientDTO(id, name, email, phone, address, gender, age, medicalHistory, registrationList);
+
+            boolean isUpdated = patientBO.update(patientDTO);
+
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Patient Updated successfully..!").show();
+                refreshPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to Update Patient..!", ButtonType.OK).show();
+
+            }
         }
 
 
@@ -310,6 +376,7 @@ public class PatientRegistrationController implements Initializable {
             patientTMS.add(patientTM);
         }
         tblPatient.setItems(patientTMS);
+
     }
 
     private void refreshPage() {
@@ -325,10 +392,10 @@ public class PatientRegistrationController implements Initializable {
         txtMedicalHistory.setText("");
         tblTherapyPrograms.getSelectionModel().clearSelection();
 
-        btnRegister.setDisable(false);
+        btnRegister.setDisable(true);
         btnAddProgram.setDisable(false);
 
-        btnReset.setDisable(true);
+        btnReset.setDisable(false);
         btnUpdate.setDisable(true);
         btnDelete.setDisable(true);
     }
@@ -362,5 +429,7 @@ public class PatientRegistrationController implements Initializable {
         setCellValuesForTblPatient();
 
         refreshPage();
+
+        txtPatientId.setEditable(false);
     }
 }

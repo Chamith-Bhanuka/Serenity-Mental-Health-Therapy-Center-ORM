@@ -123,4 +123,31 @@ public class PatientBOImpl implements PatientBO {
         }
         return patientDTOArrayList;
     }
+
+    @Override
+    public boolean save(Patient patient) {
+        return dao.save(patient);
+    }
+
+    @Override
+    public boolean update(PatientDTO patientDTO) {
+       Patient patient = new Patient();
+
+       patient.setId(patientDTO.getId());
+       patient.setName(patientDTO.getName());
+       patient.setEmail(patientDTO.getEmail());
+       patient.setPhone(patientDTO.getPhone());
+       patient.setAddress(patientDTO.getAddress());
+       patient.setGender(patientDTO.getGender());
+       patient.setAge(patientDTO.getAge());
+       patient.setMedicalHistory(patientDTO.getMedicalHistory());
+       patient.setRegistrations(patientDTO.getRegistrationList());
+
+       return dao.update(patient);
+    }
+
+    @Override
+    public Patient findByPk(String pk) {
+        return dao.findByPk(pk).orElse(null);
+    }
 }

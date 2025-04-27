@@ -1,9 +1,6 @@
 package lk.ijse.mentalHealthTherapyCenter.dao;
 
-import lk.ijse.mentalHealthTherapyCenter.dao.custom.impl.PatientDAOImpl;
-import lk.ijse.mentalHealthTherapyCenter.dao.custom.impl.TherapistDAOImpl;
-import lk.ijse.mentalHealthTherapyCenter.dao.custom.impl.TherapyProgramDAOImpl;
-import lk.ijse.mentalHealthTherapyCenter.dao.custom.impl.UserDAOImpl;
+import lk.ijse.mentalHealthTherapyCenter.dao.custom.impl.*;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -16,7 +13,7 @@ public class DAOFactory {
     }
 
     public enum DAOType {
-        User, TherapyProgram, Patient, Therapist
+        User, TherapyProgram, Patient, Therapist, Registration, Session
     }
 
     @SuppressWarnings("unchecked")
@@ -26,6 +23,8 @@ public class DAOFactory {
             case TherapyProgram -> (T) new TherapyProgramDAOImpl();
             case Patient -> (T) new PatientDAOImpl();
             case Therapist -> (T) new TherapistDAOImpl();
+            case Registration -> (T) new RegistrationDAOImpl();
+            case Session -> (T) new SessionDAOImpl();
         };
     }
 }

@@ -110,4 +110,28 @@ public class TherapistBOImpl implements TherapistBO {
 
         return dao.update(session, therapist);
     }
+
+    @Override
+    public List<TherapistDTO> getTherapistsByProgramId(String programId) {
+        List<Therapist> therapistList = dao.getTherapistsByProgramId(programId);
+        List<TherapistDTO> therapistDTOArrayList = new ArrayList<>();
+
+        for (Therapist therapist : therapistList) {
+            TherapistDTO therapistDTO = new TherapistDTO(
+                    therapist.getId(),
+                    therapist.getName(),
+                    therapist.getEmail(),
+                    therapist.getPhone(),
+                    therapist.getSpecialization(),
+                    therapist.getTherapyPrograms()
+            );
+            therapistDTOArrayList.add(therapistDTO);
+        }
+        return therapistDTOArrayList;
+    }
+
+    @Override
+    public Therapist findByPk(String pk) {
+        return dao.findByPk(pk).orElse(null);
+    }
 }
