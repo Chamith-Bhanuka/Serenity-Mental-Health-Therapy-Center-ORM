@@ -27,7 +27,6 @@ public class Therapist implements SuperEntity{
     private String phone;
     private String specialization;
 
-    // A therapist can be involved in multiple therapy programs
     @ManyToMany
     @JoinTable(
             name = "therapist_program",

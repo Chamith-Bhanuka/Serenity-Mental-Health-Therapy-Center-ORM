@@ -28,11 +28,11 @@ public class Patient implements SuperEntity{
     @Column(length = 1000)
     private String medicalHistory;
 
-    // A patient can register multiple therapy programs
+
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Registration> registrations = new ArrayList<>();
 
-    // A patient may also have multiple therapy sessions schedule
+
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Session> sessions = new ArrayList<>();
 }

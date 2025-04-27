@@ -21,18 +21,16 @@ public class TherapyProgram implements SuperEntity{
     private String programId;
 
     private String programName;
-    private String duration; // weeks, months
+    private String duration;
     private Double fee;
-    private String description; //details about the program
+    private String description;
 
     @ManyToMany(mappedBy = "therapyPrograms")
     private List<Therapist> therapists = new ArrayList<>();
 
-    // registrations for the program
     @OneToMany(mappedBy = "therapyProgram", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Registration> registrations = new ArrayList<>();
 
-    // sessions schedule under this program
     @OneToMany(mappedBy = "therapyProgram", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Session> sessions = new ArrayList<>();
 }

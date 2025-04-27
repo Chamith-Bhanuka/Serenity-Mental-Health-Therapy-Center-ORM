@@ -9,7 +9,7 @@ import lombok.*;
 @Embeddable
 @Getter
 @Setter
-@EqualsAndHashCode //for correctly comparing composite keys
+@EqualsAndHashCode
 public class RegistrationId implements SuperEntity {
     @Column(name = "patient_id")
     private int patientId;

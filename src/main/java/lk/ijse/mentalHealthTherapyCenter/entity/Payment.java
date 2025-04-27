@@ -29,9 +29,8 @@ public class Payment implements SuperEntity{
 
     private String paymentMethod;
 
-    private String status; //completed, pending, or failed
+    private String status;
 
-    // link back to the registration with this payment
     @OneToOne
     @JoinColumn(name = "registration_id", nullable = false)
     private Registration registration;

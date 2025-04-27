@@ -523,7 +523,7 @@ public class ScheduleSessionController implements Initializable {
             cmbTherapist.setItems(FXCollections.observableArrayList(selectedItem.getTherapist().getName()));
             dpkDate.setValue(selectedItem.getSessionDate());
 
-            btnReshedule.setDisable(true);
+            btnSaveSession.setDisable(true);
 
             btnReshedule.setDisable(false);
             btnReset.setDisable(false);

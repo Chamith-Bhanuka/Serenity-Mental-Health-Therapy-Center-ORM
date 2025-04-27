@@ -23,17 +23,14 @@ public class Registration implements SuperEntity{
 
     private LocalDate registrationDate;
 
-    //link to the patient making the registration
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
-    //link to the therapy program
     @ManyToOne
     @JoinColumn(name = "program_id", nullable = false)
     private TherapyProgram therapyProgram;
 
-    //One-to-one relationship with payment to track the upfront payment for this registration
     @OneToOne(mappedBy = "registration", cascade = CascadeType.ALL)
     private Payment payment;
 
