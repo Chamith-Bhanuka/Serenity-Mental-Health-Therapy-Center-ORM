@@ -230,7 +230,6 @@ public class ScheduleSessionController implements Initializable {
             new Alert(Alert.AlertType.INFORMATION, "Please enter a valid date", ButtonType.OK).show();
             return;
         }
-
         List<SessionDTO> sessionsForTherapist = sessionBO.getSessionsByTherapist(therapistIdGlob);
         boolean isConflict = false;
 
